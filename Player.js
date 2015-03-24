@@ -1,60 +1,54 @@
-var canvas = document.getElementById("gameCanvas");	
-var context = canvas.getContext("2d");
-var width="500", height="400", speed=3;
-
-var keys = [];
 var Player = function(position) {
 
-	this.x: position.x,
-	this.y: position.y,
-	this.width: 20,
-	this.height: 20
+	this.x= position.x;
+	this.y= position.y;
+	this.vx=0;
+	this.vy=0;
+	this.width= 20;
+	this.height= 20;
+	this.hitbox= {	
+		'xLow':this.x,	'xHigh':this.x+this.width,
+		'yLow':this.y,	'yHigh':this.y+this.height
+	};
 };
 
-window.addEventListener("keydown", function(e){
-	keys[e.keyCode] = true;
-}, false);
-
-window.addEventListener("keyup", function(e){
-	delete keys[e.keyCode];
-}, false);
-
-// function game(){
-// 	update();
-// 	render();
-// }
-
-Player.prototype.update= function(time_difference){
+Player.prototype.update = function(){
+	// user interaction
 	if (up)//w
-		ball.vy-=speed;
+		this.vy-=speed;
 	if (down)//s
-		ball.vy+=speed;
+		this.vy+=speed;
 	if (left)//a
-		ball.vx-=speed;
+		this.vx-=speed;
 	if (right)//d
-		ball.vx+=speed;
-	// if(keys[38]) player.y-=speed;
-	// if(keys[40]) player.y+=speed;
-	// if(keys[37]) player.x-=speed;
-	// if(keys[39]) player.x+=speed;
+		this.vx+=speed;
+// }
+// Player.prototype.movement= function(){
+	//Physics 
+	this.y += this.vy*(progress/1000);
+	this.x += this.vx*(progress/1000);
+	this.vx *= slowing_speed;
+	this.vy *= slowing_speed;
 
-	// if(player.x < 0) player.x = 0;
-	// if(player.y < 0) player.y = 0;
-	// if(player.x >= width - player.width) player.x = width - player.width;
-	// if(player.y >= height - player.height) player.y = height - player.height;
+	//Collide Detection
+	if(this.y + this.height > H) {
+		this.y = H - this.height;
+		this.vy *= -bounceFactor;
+	}
+	if(this.x + this.width > W) {
+		this.x = W - this.width;
+		this.vx *= -bounceFactor;
+	}
+	if(this.y < 0) {
+		this.y = 0;
+		this.vy *= -bounceFactor;
+	}
+	if(this.x < 0) {
+		this.x = 0;
+		this.vx *= -bounceFactor;
+	}
 }
 
-
-
-
-
-
 Player.prototype.render=function(){
-	context.fillRect(player.x, player.y, player.width, player.height);
+	ctx.fillRect(player.x, player.y, player.width, player.height);
 } 
-
-// setInterval(function(){
-// 	game();
-// }, 1000/30)
-
-
