@@ -1,6 +1,7 @@
-//gameground
-
-var speed=100, slowing_speed = 0.9, bounceFactor = 0.7,  player,
+//gameground 
+//elements
+var player,
+//movement checks
 up = false, down = false, left = false, right = false;
 var Gameground_instance= false;
 

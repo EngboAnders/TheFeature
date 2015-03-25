@@ -1,3 +1,6 @@
+//player physics
+var speed=10, slowing_speed = 0.9, bounceFactor = 0.3, gravity=9.3;
+
 var Player = function(position) {
 
 	this.x= position.x;
@@ -25,10 +28,13 @@ Player.prototype.update = function(){
 // }
 // Player.prototype.movement= function(){
 	//Physics 
-	this.y += this.vy*(progress/1000);
+	// console.log(progress/100);
+	this.vy += gravity*(progress/100);
+	// this.vx *= slowing_speed*(progress/1000);
+	this.y += this.vy;
 	this.x += this.vx*(progress/1000);
-	this.vx *= slowing_speed;
-	this.vy *= slowing_speed;
+	
+	// this.vy *= slowing_speed;
 
 	//Collide Detection
 	if(this.y + this.height > H) {
