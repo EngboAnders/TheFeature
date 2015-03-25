@@ -55,6 +55,9 @@ Player.prototype.update = function(){
 	}
 }
 
+var img = new Image();
 Player.prototype.render=function(){
-	ctx.fillRect(player.x, player.y, player.width, player.height);
+	ctx.drawImage(img,player.width, player.height);
 } 
+
+img.src = 'player.png';
