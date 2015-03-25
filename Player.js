@@ -57,7 +57,7 @@ Player.prototype.update = function(){
 
 var img = new Image();
 Player.prototype.render=function(){
-	ctx.drawImage(img,player.width, player.height);
+	ctx.drawImage(img,player.x, player.y);
 } 
 
 img.src = 'player.png';
