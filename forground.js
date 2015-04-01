@@ -4,7 +4,7 @@ var Forground_instance = false;
 var Forground =function(ctx){
 	if(Forground_instance){
 		//
-		ctx.fillStyle = 'green';
+		ctx.fillStyle = 'white';
 		ctx.font = '30px Verdana, sans-serif';
 		ctx.textBaseline = 'top';
 		ctx.textAlign = 'left';

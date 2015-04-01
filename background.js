@@ -26,7 +26,7 @@ Particle.prototype.render = function(){
 	}
 	// ctx.fillRect(this.x, this.y, this.speed.y*size, this.speed.y*size);
 	ctx.font = 'bold ' + this.speed.y*size +'px matrix';//*/+(this.speed.y*speed<9?'-webkit-text-stroke: 0.35px':"");
-	ctx.fillStyle = '0 0 5px rgba(0,255,0,0.5)';
+	ctx.fillStyle = 'green';
 	for(i=0;i<this.number_text.length;i++)
 		ctx.fillText(this.number_text.charAt(i),this.x,this.y-i*size)
 

@@ -1,9 +1,11 @@
 //player physics
 var speed=6, slowing_speed = 0.9, bounceFactor = 0.3, gravity=9.3;
 
+var player_w = 22, player_h = 66, srcX = 10, srcY = 0;
+
 var Player = function(position) {
 	this.img = new Image();
-	this.img.src = 'player.png';
+	this.img.src = 'playerSprite.png';
 	this.x= position.x;
 	this.y= position.y;
 	this.vx=0;
@@ -94,7 +96,16 @@ Player.prototype.setPosition=function(pos){
 }
 
 Player.prototype.render=function(){
-	ctx.drawImage(this.img,this.x, this.y);
+if (right) {
+    srcX = 44;
+} else if (left) {
+    srcX = 22;
+}
+  ctx.drawImage(this.img,srcX,srcY,player_w,player_h,player.x,player.y,player_w,player_h);
+if (right == false || left == false) {
+    srcX = 0;
+}
+	//ctx.drawImage(this.img,this.x, this.y);
 } 
 
 Player.prototype.collide=function(block, onGround){
