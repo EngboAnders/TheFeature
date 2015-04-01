@@ -12,7 +12,7 @@ var Particle = function(){
 	this.radius = 4;
 	this.number_text='';
 	for(i=0;i<15;i++)
-	this.number_text+= Math.floor(Math.random()*2)+'\n\n';
+		this.number_text+= Math.floor(Math.random()*2)+'\n\n';
 
 };
 
@@ -25,7 +25,7 @@ Particle.prototype.render = function(){
 		particles.splice(particles.indexOf(this),1);
 	}
 	// ctx.fillRect(this.x, this.y, this.speed.y*size, this.speed.y*size);
-	ctx.font = 'bold ' + this.speed.y*size +'px matrix';
+	ctx.font = 'bold ' + this.speed.y*size +'px matrix';//*/+(this.speed.y*speed<9?'-webkit-text-stroke: 0.35px':"");
 	ctx.fillStyle = '0 0 5px rgba(0,255,0,0.5)';
 	for(i=0;i<this.number_text.length;i++)
 		ctx.fillText(this.number_text.charAt(i),this.x,this.y-i*size)

@@ -44,9 +44,9 @@ setInterval(function()
 	}
 	//alert(rect.Intersects(rect2))
 	rect2.x += movement;
-	/*if (rect2.Intersects(rect) || rect2.Intersects(rect3)) {
+	if (rect2.Intersects(rect) || rect2.Intersects(rect3)) {
 		movement*=-1;
-	}*/
+	}
 }, 33);
 
 canvas.addEventListener('click',function(evt){

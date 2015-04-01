@@ -22,23 +22,35 @@ Rectangle = function(x, y, w, h, image)
 	this.y		= y;
 	this.width	= w;
 	this.height	= h;
-	
+	// this.hitbox = {
+	// 	'Xlow':this.x, 
+	// 	'Ylow':this.y, 
+	// 	'Xhigh':this.x+this.width, 
+	// 	'Yhigh':this.y+this.height
+	// };
+	this.hitbox = function(){
+		return {
+			'Xlow':this.x, 
+			'Ylow':this.y, 
+			'Xhigh':this.x+this.width, 
+			'Yhigh':this.y+this.height
+		}
+	}
 	this.Intersects = function(shape)
 	{
-		var offset = 0;
-		if (shape.radius != null)
-			offset = shape.radius;
+		var hit_box=this.hitbox();
+		var shape_box = shape.hitbox();
 		
-		if (this.Contains(shape.x - offset, shape.y - offset) || this.Contains(shape.x + shape.width - offset, shape.y - offset) ||
-			this.Contains(shape.x - offset, shape.y + shape.height - offset) || this.Contains(shape.x + shape.width - offset, shape.y + shape.height - offset))
+		if (this.Contains(shape_box.Xlow , shape_box.Ylow ) || this.Contains(shape_box.Xhigh , shape_box.Ylow ) ||
+			this.Contains(shape_box.Xlow , shape_box.Yhigh ) || this.Contains(shape_box.Xhigh , shape_box.Yhigh ))
 		{
 			return true;
 		}
-		else if (shape.Contains(this.x - offset, this.y - offset) || shape.Contains(this.x + this.width - offset, this.y - offset) ||
-			shape.Contains(this.x - offset, this.y + this.height - offset) || shape.Contains(this.x + this.width - offset, this.y + this.height - offset))
-		{
-			return true;
-		}
+		// else if (shape.Contains(this.x , this.y ) || shape.Contains(this.x + this.width , this.y ) ||
+		// 	shape.Contains(this.x , this.y + this.height ) || shape.Contains(this.x + this.width , this.y + this.height ))
+		// {
+		// 	return true;
+		// }
 		
 		return false;
 	};
