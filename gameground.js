@@ -9,7 +9,9 @@ var current_level=null;
 var Gameground =function(ctx){
 	if(Gameground_instance){
 		//level
+		// console.log('sss')
 		if(current_level!=null){
+			// console.log('bbbb')
 			current_level.update(ctx);
 		}
 		//player

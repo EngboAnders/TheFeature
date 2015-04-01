@@ -11,7 +11,7 @@ var Player = function(position) {
 	this.vx=0;
 	this.vy=0;
 	this.width= 20;
-	this.height= 20;
+	this.height= 30;
 	this.grounded = false;
 };
 Player.prototype.hitbox=function(){
@@ -23,7 +23,6 @@ Player.prototype.hitbox=function(){
 	};
 }
 Player.prototype.update = function(current_level){
-
 	// user interaction
 	if (up)//w
 		this.vy-=speed;
@@ -37,16 +36,19 @@ Player.prototype.update = function(current_level){
 // Player.prototype.movement= function(){
 	//Physics 
 	// console.log(progress/100);
-	var oldY=this.y;
-	if(!this.grounded){
-		this.vy += gravity*(progress/100);
-		this.y += this.vy;
-	}
 	this.vy *= slowing_speed;
 	this.vx *= slowing_speed;
 	
+	var oldY=this.y;
+	if(!this.grounded){
+		// this.vy += gravity*(progress/100);
+		this.y += this.vy;
+		
+	}
+
 	
-	this.x += this.vx*(progress/1000)*3;
+	
+	
 	
 	// this.vy *= slowing_speed;
 		//Collide Detection Screen
@@ -71,10 +73,21 @@ Player.prototype.update = function(current_level){
 	
 	//stuff
 	var onGround=-1;
-	for(var block in current_level.blocks)
-		onGround=this.collide(current_level.blocks[block],onGround);
+	var i = 0;
+	var collide_i=-1;
+	while(i<current_level.blocks.length){
+	// for(var block in current_level.blocks)
+	var oldGround=onGround;
+		onGround=this.collide(current_level.blocks[i],onGround);
+		if(oldGround!=onGround)
+			collide_i=i;
+		i++;
+	}
 	if(onGround>-1){
 		this.y=oldY;
+		if(this.y>current_level.blocks[collide_i].hitbox().Yhigh&&
+		   this.hitbox().Yhigh>current_level.blocks[collide_i].hitbox().Yhigh)
+			this.y=current_level.blocks[collide_i].hitbox().Yhigh+1;
 		this.grounded=true;
 	}
 	else
@@ -84,6 +97,7 @@ Player.prototype.update = function(current_level){
 	for(var item in current_level.items)
 		this.collide(current_level.items[item]);
 
+	this.x += this.vx*(progress/1000)*3;
 
 	this.render();
 }
@@ -109,8 +123,8 @@ if (right == false || left == false) {
 } 
 
 Player.prototype.collide=function(block, onGround){
-	console.log(this.hitbox());
-	console.log(block.hitbox());
+	// console.log(this.hitbox());
+	// console.log(block.hitbox());
 	if(this.inside(block)){
 		onGround++;
 		if(this.hitbox().Ylow<block.hitbox().Yhigh&&this.hitbox().Yhigh>block.hitbox().Yhigh){
@@ -128,12 +142,24 @@ Player.prototype.inside=function(shape){
 	// {
 	var hit_box=this.hitbox();
 	var shape_box = shape.hitbox();
+	var topLeft=false;
+	var topRight=false;
+	var bottomLeft=false;
+	var bottomRight=false;
 	
-	if (this.Contains(shape_box.Xlow , shape_box.Ylow ) || this.Contains(shape_box.Xhigh , shape_box.Ylow ) ||
-		this.Contains(shape_box.Xlow , shape_box.Yhigh ) || this.Contains(shape_box.Xhigh , shape_box.Yhigh ))
-	{
+	if (shape.Contains(hit_box.Xlow , hit_box.Ylow ))
+		topLeft=true; 
+	if(shape.Contains(hit_box.Xhigh , hit_box.Ylow ))
+		topRight=true;
+	if(shape.Contains(hit_box.Xlow , hit_box.Yhigh ))
+		bottomLeft=true;
+	if(shape.Contains(hit_box.Xhigh , hit_box.Yhigh ))
+		bottomRight=true;
+	if(topRight&&bottomRight||topLeft&&bottomLeft)
+		this.vx*=-1;
+	if(topLeft||topRight||bottomLeft||bottomRight)
 		return true;
-	}
+	
 	// else if (shape.Contains(this.x , this.y ) || shape.Contains(this.x + this.width , this.y ) ||
 	// 	shape.Contains(this.x , this.y + this.height ) || shape.Contains(this.x + this.width , this.y + this.height ))
 	// {

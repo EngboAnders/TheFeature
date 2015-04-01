@@ -10,8 +10,14 @@ var Level = function(playerStartPosition, id){
 Level.prototype.update = function(ctx){
 	// console.log('updateing lvl');
 	try{
-		for(var element in this.blocks)
-			this.blocks[element].Draw();
+		// console.log(this.blocks.length);
+		var i =0;
+		while( i<this.blocks.length){
+			// console.log(this.blocks[i]);
+			this.blocks[i].Draw(ctx);
+			
+			i++
+		}
 	}
 	catch(e)
 	{
@@ -38,5 +44,5 @@ Level.prototype.firstDraw= function(){
 
 //lvl0
 var lvl0=new Level({'x':10,'y':10});
-lvl0.blocks.push(new Rectangle(30,30,20,20));
+lvl0.blocks.push(new Rectangle(40,40,150,82));
 levels.push(lvl0);
