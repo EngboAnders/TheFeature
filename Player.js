@@ -1,5 +1,5 @@
 //player physics
-var speed=6, slowing_speed = 0.9, bounceFactor = 0.3, gravity=9.3;
+var oldY, oldX, speed=6, slowing_speed = 0.9, speed_up=2, bounceFactor = 0.3, gravity=9.3, update_move=true;
 
 var player_w = 22, player_h = 66, srcX = 10, srcY = 0;
 
@@ -10,24 +10,25 @@ var Player = function(position) {
 	this.y= position.y;
 	this.vx=0;
 	this.vy=0;
-	this.width= 20;
-	this.height= 30;
+	this.width= 15;
+	this.height= 22;
 	this.grounded = false;
 };
 Player.prototype.hitbox=function(){
 	return {
-		'Xlow':this.x, 
+		'Xlow':this.x+5, 
 		'Ylow':this.y, 
 		'Xhigh':this.x+this.width, 
 		'Yhigh':this.y+this.height
 	};
 }
 Player.prototype.update = function(current_level){
+	update_move=true;
 	// user interaction
 	if (up)//w
-		this.vy-=speed;
+		this.vy-=speed_up;
 	if (down)//s
-		this.vy+=speed;
+		this.vy+=speed_up;
 	if (left)//a
 		this.vx-=speed;
 	if (right)//d
@@ -39,10 +40,11 @@ Player.prototype.update = function(current_level){
 	this.vy *= slowing_speed;
 	this.vx *= slowing_speed;
 	
-	var oldY=this.y;
+	oldY=this.y;
+	oldX=this.x;
 	if(!this.grounded){
 		// this.vy += gravity*(progress/100);
-		this.y += this.vy;
+		
 		
 	}
 
@@ -52,8 +54,8 @@ Player.prototype.update = function(current_level){
 	
 	// this.vy *= slowing_speed;
 		//Collide Detection Screen
-	if(this.hitbox().Yhigh > H) {
-		this.y = H - this.height;
+	if(this.hitbox().Yhigh > H-5) {
+		this.y = H - this.height-5;
 		this.vy *= -bounceFactor;
 	}
 	if(this.hitbox().Xhigh > W) {
@@ -84,10 +86,10 @@ Player.prototype.update = function(current_level){
 		i++;
 	}
 	if(onGround>-1){
-		this.y=oldY;
-		if(this.y>current_level.blocks[collide_i].hitbox().Yhigh&&
-		   this.hitbox().Yhigh>current_level.blocks[collide_i].hitbox().Yhigh)
-			this.y=current_level.blocks[collide_i].hitbox().Yhigh+1;
+		// this.y=oldY;
+		// if(this.y>current_level.blocks[collide_i].hitbox().Yhigh&&
+		   // this.hitbox().Yhigh>current_level.blocks[collide_i].hitbox().Yhigh)
+			// this.y=current_level.blocks[collide_i].hitbox().Yhigh+1;
 		this.grounded=true;
 	}
 	else
@@ -97,7 +99,11 @@ Player.prototype.update = function(current_level){
 	for(var item in current_level.items)
 		this.collide(current_level.items[item]);
 
-	this.x += this.vx*(progress/1000)*3;
+	if(update_move){
+		this.x += this.vx*(progress/1000)*3;
+		this.y += this.vy;
+	}
+	
 
 	this.render();
 }
@@ -127,10 +133,10 @@ Player.prototype.collide=function(block, onGround){
 	// console.log(block.hitbox());
 	if(this.inside(block)){
 		onGround++;
-		if(this.hitbox().Ylow<block.hitbox().Yhigh&&this.hitbox().Yhigh>block.hitbox().Yhigh){
-			this.vy += gravity*(progress/100);
-			this.y 	+= this.vy;
-		}
+		// if(this.hitbox().Ylow<block.hitbox().Yhigh&&this.hitbox().Yhigh>block.hitbox().Yhigh){
+		// 	this.vy += gravity*(progress/100);
+		// 	this.y 	+= this.vy;
+		// }
 	}
 	return onGround;
 }
@@ -146,7 +152,7 @@ Player.prototype.inside=function(shape){
 	var topRight=false;
 	var bottomLeft=false;
 	var bottomRight=false;
-	
+	//checks for corners
 	if (shape.Contains(hit_box.Xlow , hit_box.Ylow ))
 		topLeft=true; 
 	if(shape.Contains(hit_box.Xhigh , hit_box.Ylow ))
@@ -155,10 +161,81 @@ Player.prototype.inside=function(shape){
 		bottomLeft=true;
 	if(shape.Contains(hit_box.Xhigh , hit_box.Yhigh ))
 		bottomRight=true;
-	if(topRight&&bottomRight||topLeft&&bottomLeft)
-		this.vx*=-1;
-	if(topLeft||topRight||bottomLeft||bottomRight)
+
+	// if(topLeft)
+	// 	console.log('topLeft')
+	// if(topRight)
+	// 	console.log('topRight')
+	// if(bottomLeft)
+	// 	console.log('bottomLeft')
+	// if(bottomRight)
+	// 	console.log('bottomRight')
+	//sides touches
+	if(topRight&&bottomRight){
+		this.x=shape_box.Xlow-this.width;
+		if(this.vx>0)
+			this.vx=0;
 		return true;
+	}
+	if(topLeft&&bottomLeft){
+		this.x=shape_box.Xhigh-5;
+		if(this.vx<0)
+			this.vx=0;
+		return true;
+	}
+	if(topLeft&&topRight){
+		this.y=shape_box.Yhigh;
+		if(this.vy<0)
+			this.vy=0;
+		return true;
+	}
+	if(bottomLeft&&bottomRight){
+		this.y=shape_box.Ylow-this.height;
+		if(this.vy>0)
+			this.vy=0;
+		return true;
+	}
+
+	//corners
+	if(topLeft||topRight||bottomLeft||bottomRight){
+		
+		if(topLeft){
+			oldX++;
+			oldY++;
+			if(this.vx<0)
+				this.vx=0;
+			if(this.vy<0)
+				this.vy=0;
+		}
+		if(topRight){
+			oldX--;
+			oldY++;
+			if(this.vx>0)
+				this.vx=0;
+			if(this.vy<0)
+				this.vy=0;
+		}
+		if(bottomLeft){
+			oldX++;
+			oldY--;
+			if(this.vx<0)
+				this.vx=0;
+			if(this.vy>0)
+				this.vy=0;
+		}
+		if(bottomRight){
+			oldX--;
+			oldY--;
+			if(this.vx>0)
+				this.vx=0;
+			if(this.vy>0)
+				this.vy=0;
+		}
+		this.x=oldX;
+		this.y=oldY;
+		
+		return true;
+	}
 	
 	// else if (shape.Contains(this.x , this.y ) || shape.Contains(this.x + this.width , this.y ) ||
 	// 	shape.Contains(this.x , this.y + this.height ) || shape.Contains(this.x + this.width , this.y + this.height ))
