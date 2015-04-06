@@ -2,7 +2,8 @@
 var canvas, ctx, fps = 90, start_step_in_time = 0, 
 progress = 0, collected_time = 0,
 //height and width of the game surface
-W = window.innerWidth-33, H = window.innerHeight-33;
+W = 900,//*/window.innerWidth-33, 
+H = 650;//*/window.innerHeight-33;
 // player stuff goes here! Such as speed, bouncability and such
 
 

@@ -1,5 +1,5 @@
 //player physics
-var oldY, oldX, speed=6, slowing_speed = 0.9, speed_up=2, bounceFactor = 0.3, gravity=9.3, update_move=true;
+var oldY, oldX, speed=6, slowing_speed = 0.9, speed_up=5, bounceFactor = 0.0001, gravity=9.3, update_move=true;
 
 var player_w = 22, player_h = 66, srcX = 10, srcY = 0;
 
@@ -23,8 +23,40 @@ Player.prototype.hitbox=function(){
 	};
 }
 Player.prototype.update = function(current_level){
+	this.render();
 	update_move=true;
+	var onGround=-1;
 	// user interaction
+	
+	oldY=this.y;
+	oldX=this.x;
+	
+	if(!this.grounded){
+		this.vy += gravity*(progress/100);
+	}
+	
+
+	
+	// this.vy *= slowing_speed;
+		//Collide Detection Screen
+	if(this.hitbox().Yhigh > H-5) {
+		onGround++;
+		this.y = H - this.height-5;
+		this.vy *= -bounceFactor;
+	}
+	if(this.hitbox().Xhigh > W-5) {
+		this.x = W - this.width-5;
+		this.vx *= -bounceFactor;
+	}
+	if(this.hitbox().Ylow < 0) {
+		this.y = 0;
+		this.vy *= -bounceFactor;
+	}
+	if(this.hitbox().Xlow < 0) {
+		this.x = 0-5;
+		this.vx *= -bounceFactor;
+	}
+
 	if (up)//w
 		this.vy-=speed_up;
 	if (down)//s
@@ -33,71 +65,40 @@ Player.prototype.update = function(current_level){
 		this.vx-=speed;
 	if (right)//d
 		this.vx+=speed;
+ 
+	
+	// stuff
+	var i = 0;
+	// var collide_i=-1;
+	this.grounded=false;
+	while(i<current_level.blocks.length){
+	// for(var block in current_level.blocks)
+		// var oldGround=onGround;
+		if(this.inside(current_level.blocks[i],onGround))
+			this.grounded=true;
+		// if(oldGround!=onGround)
+		// 	collide_i=i;
+		i++;
+	}
+	// if(onGround>-1)
+	// 	this.grounded=true;
+	// else
+	// 	this.grounded=false;
+
+	for(var enemy in current_level.enemies)
+		this.inside(current_level.enemies[enemy]);
+	for(var item in current_level.items)
+		this.inside(current_level.items[item]);
+
+	
 // }
 // Player.prototype.movement= function(){
 	//Physics 
 	// console.log(progress/100);
 	this.vy *= slowing_speed;
 	this.vx *= slowing_speed;
-	
-	oldY=this.y;
-	oldX=this.x;
-	if(!this.grounded){
-		// this.vy += gravity*(progress/100);
-		
-		
-	}
 
 	
-	
-	
-	
-	// this.vy *= slowing_speed;
-		//Collide Detection Screen
-	if(this.hitbox().Yhigh > H-5) {
-		this.y = H - this.height-5;
-		this.vy *= -bounceFactor;
-	}
-	if(this.hitbox().Xhigh > W) {
-		this.x = W - this.width;
-		this.vx *= -bounceFactor;
-	}
-	if(this.hitbox().Ylow < 0) {
-		this.y = 0;
-		this.vy *= -bounceFactor;
-	}
-	if(this.hitbox().Xlow < 0) {
-		this.x = 0;
-		this.vx *= -bounceFactor;
-	}
-
- 
-	
-	//stuff
-	var onGround=-1;
-	var i = 0;
-	var collide_i=-1;
-	while(i<current_level.blocks.length){
-	// for(var block in current_level.blocks)
-	var oldGround=onGround;
-		onGround=this.collide(current_level.blocks[i],onGround);
-		if(oldGround!=onGround)
-			collide_i=i;
-		i++;
-	}
-	if(onGround>-1){
-		// this.y=oldY;
-		// if(this.y>current_level.blocks[collide_i].hitbox().Yhigh&&
-		   // this.hitbox().Yhigh>current_level.blocks[collide_i].hitbox().Yhigh)
-			// this.y=current_level.blocks[collide_i].hitbox().Yhigh+1;
-		this.grounded=true;
-	}
-	else
-		this.grounded=false;
-	for(var enemy in current_level.enemies)
-		this.collide(current_level.enemies[enemy]);
-	for(var item in current_level.items)
-		this.collide(current_level.items[item]);
 
 	if(update_move){
 		this.x += this.vx*(progress/1000)*3;
@@ -105,7 +106,7 @@ Player.prototype.update = function(current_level){
 	}
 	
 
-	this.render();
+	
 }
 
 Player.prototype.setPosition=function(pos){
@@ -128,18 +129,18 @@ if (right == false || left == false) {
 	//ctx.drawImage(this.img,this.x, this.y);
 } 
 
-Player.prototype.collide=function(block, onGround){
-	// console.log(this.hitbox());
-	// console.log(block.hitbox());
-	if(this.inside(block)){
-		onGround++;
-		// if(this.hitbox().Ylow<block.hitbox().Yhigh&&this.hitbox().Yhigh>block.hitbox().Yhigh){
-		// 	this.vy += gravity*(progress/100);
-		// 	this.y 	+= this.vy;
-		// }
-	}
-	return onGround;
-}
+// Player.prototype.collide=function(block, onGround){
+// 	// console.log(this.hitbox());
+// 	// console.log(block.hitbox());
+// 	if(this.inside(block)){
+// 		onGround++;
+// 		// if(this.hitbox().Ylow<block.hitbox().Yhigh&&this.hitbox().Yhigh>block.hitbox().Yhigh){
+// 		// 	this.vy += gravity*(progress/100);
+// 		// 	this.y 	+= this.vy;
+// 		// }
+// 	}
+// 	return onGround;
+// }
 
 
 
@@ -187,7 +188,7 @@ Player.prototype.inside=function(shape){
 		this.y=shape_box.Yhigh;
 		if(this.vy<0)
 			this.vy=0;
-		return true;
+		return false;
 	}
 	if(bottomLeft&&bottomRight){
 		this.y=shape_box.Ylow-this.height;

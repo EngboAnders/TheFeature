@@ -1,8 +1,9 @@
 var particles = [];
-var max_particles= 150;
+var max_particles= 250;
 var bool=true;
 var size = 6;
 var Background_instance=false;
+
 var Particle = function(){
 	this.speed = {};
 	this.speed.x = 0;
@@ -11,6 +12,7 @@ var Particle = function(){
 	this.y = 0;
 	this.radius = 4;
 	this.number_text='';
+	this.to_remove=false;
 	for(i=0;i<15;i++)
 		this.number_text+= Math.floor(Math.random()*2)+'\n\n';
 
@@ -19,10 +21,12 @@ var Particle = function(){
 Particle.prototype.render = function(){
 	this.x += this.speed.x;
 	this.y += this.speed.y;
-	
+	if(particles.indexOf(this)==0&&this.to_remove)
+		// particles.splice(particles.indexOf(this),1);
+			particles.shift();
 	if(this.y > canvas.height+15*size*3){
 		// console.log('here')
-		particles.splice(particles.indexOf(this),1);
+		this.to_remove=true;
 	}
 	// ctx.fillRect(this.x, this.y, this.speed.y*size, this.speed.y*size);
 	ctx.font = 'bold ' + this.speed.y*size +'px matrix';//*/+(this.speed.y*speed<9?'-webkit-text-stroke: 0.35px':"");

@@ -1,7 +1,6 @@
 //levels
 var levels=[];
-var Level = function(playerStartPosition, id){
-	this.id						= id;
+var Level = function(playerStartPosition){
 	this.playerStartPosition 	= playerStartPosition;
 	this.blocks  				= [];
 	this.enemies 				= [];
@@ -39,10 +38,21 @@ Level.prototype.update = function(ctx){
 	// }
 }
 Level.prototype.firstDraw= function(){
-	player.setPosition(this.playerStartPosition);
+	if(playerStartPosition)
+		player.setPosition(this.playerStartPosition);
 }
 
-//lvl0
-var lvl0=new Level({'x':10,'y':10});
-lvl0.blocks.push(new Rectangle(40,40,150,82));
-levels.push(lvl0);
+// $(function(){
+	// PreloadImgs();
+	//lvl0
+	var lvl0=new Level({'x':10,'y':10});
+	lvl0.blocks.push(new Rectangle(40,40,150,82,imgs[8]));
+	lvl0.blocks.push(new NewLvlRectangle(500,500,150,82,imgs[8],1,{'x':10,'y':10}))
+	levels.push(lvl0);
+
+	//lvl1
+	var lvl1= new Level();
+	lvl1.blocks.push(new Rectangle(400,400,150,82,imgs[8]));
+	levels.push(lvl1);
+// })
+
