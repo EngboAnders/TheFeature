@@ -148,6 +148,7 @@ if (right == false || left == false) {
 
 
 Player.prototype.inside=function(shape){
+	// console.log(shape);
 // this.Intersects = function(shape)
 	// {
 	var hit_box=this.hitbox();

@@ -30,7 +30,7 @@ Level.prototype.update = function(ctx){
 			
 			i++
 		}
-	// }
+	// // }
 	// catch(e)
 	// {
 	// 	console.log('making enemies failed');
@@ -61,7 +61,7 @@ Level.prototype.firstDraw= function(){
 
 	lvl0.blocks.push(new Rectangle(40,40,150,82,imgs[8]));
 	lvl0.blocks.push(new NewLvlRectangle(500,500,150,82,imgs[8],1,{'x':10,'y':10}));
-	lvl0.enemies.push(new Enemy({'x':40,'y':10}));
+	lvl0.enemies.push(new Enemy({'x':40,'y':10},{'x':400,'y':10},80,40));
 
 
 //top
@@ -121,7 +121,7 @@ Level.prototype.firstDraw= function(){
 	levels.push(lvl1);
 // 
 	//lvl2
-	var lv12= new Level();
+	var lvl2= new Level();
 	//decision
 	lvl2.blocks.push(new Rectangle(50,50,96,95,imgs[15]));
 	levels.push(lvl2);
