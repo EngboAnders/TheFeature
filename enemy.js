@@ -1,14 +1,10 @@
-//player physics
-var speed=6, slowing_speed = 0.9, speed_up=5, bounceFactor = 0.0001, gravity=9.3;
-
-var player_w = 22, player_h = 66, srcX = 10, srcY = 0;
-
-var Player = function(position) {
+//enermy
+var Enemy = function(position) {
 	this.img = new Image();
 	this.img.src = 'playerSprite.png';
 	this.x= position.x;
 	this.y= position.y;
-	this.vx=0;
+	this.vx=20;
 	this.vy=0;
 	this.width= 15;
 	this.height= 22;
@@ -17,16 +13,16 @@ var Player = function(position) {
 	this.oldY;
 	this.update_move=true;
 };
-Player.prototype.hitbox=function(){
+Enemy.prototype.hitbox=function(){
 	return {
-		'Xlow':this.x+5, 
+		'Xlow':this.x, 
 		'Ylow':this.y, 
 		'Xhigh':this.x+this.width, 
 		'Yhigh':this.y+this.height
 	};
 }
-Player.prototype.update = function(current_level){
-	this.render();
+Enemy.prototype.update = function(ctx,current_level){
+	this.render(ctx);
 	this.update_move=true;
 	var onGround=-1;
 	// user interaction
@@ -42,38 +38,29 @@ Player.prototype.update = function(current_level){
 	
 	// this.vy *= slowing_speed;
 		//Collide Detection Screen
-	if(this.hitbox().Yhigh > H-5) {
+	if(this.hitbox().Yhigh > H) {
 		onGround++;
-		this.y = H - this.height-5;
+		this.y = H - this.height;
 		this.vy *= -bounceFactor;
 	}
-	if(this.hitbox().Xhigh > W-5) {
-		this.x = W - this.width-5;
-		this.vx *= -bounceFactor;
+	if(this.hitbox().Xhigh > W) {
+		this.x = W - this.width;
+		this.vx *= -1;
 	}
 	if(this.hitbox().Ylow < 0) {
 		this.y = 0;
 		this.vy *= -bounceFactor;
 	}
 	if(this.hitbox().Xlow < 0) {
-		this.x = 0-5;
-		this.vx *= -bounceFactor;
+		this.x = 0;
+		this.vx *= -1;
 	}
-
-	if (up)//w
-		this.vy-=speed_up;
-	if (down)//s
-		this.vy+=speed_up;
-	if (left)//a
-		this.vx-=speed;
-	if (right)//d
-		this.vx+=speed;
- 
 	
 	// stuff
 	var i = 0;
 	// var collide_i=-1;
 	this.grounded=false;
+	// console.log(current_level);
 	while(i<current_level.blocks.length){
 	// for(var block in current_level.blocks)
 		// var oldGround=onGround;
@@ -88,18 +75,17 @@ Player.prototype.update = function(current_level){
 	// else
 	// 	this.grounded=false;
 
-	for(var enemy in current_level.enemies)
-		this.inside(current_level.enemies[enemy]);
-	for(var item in current_level.items)
-		this.inside(current_level.items[item]);
+	
+	this.inside(player);
+
 
 	
 // }
 // Player.prototype.movement= function(){
 	//Physics 
 	// console.log(progress/100);
-	this.vy *= slowing_speed;
-	this.vx *= slowing_speed;
+	// this.vy *= slowing_speed;
+	// this.vx *= slowing_speed;
 
 	
 
@@ -112,24 +98,24 @@ Player.prototype.update = function(current_level){
 	
 }
 
-Player.prototype.setPosition=function(pos){
+Enemy.prototype.setPosition=function(pos){
 	this.x=pos.x;
 	this.y=pos.y;
 	this.vx=0;
 	this.vy=0;
 }
 
-Player.prototype.render=function(){
+Enemy.prototype.render=function(ctx){
 if (right) {
     srcX = 44;
 } else if (left) {
     srcX = 22;
 }
-  ctx.drawImage(this.img,srcX,srcY,player_w,player_h,player.x,player.y,player_w,player_h);
+  // ctx.drawImage(this.img,srcX,srcY,player_w,player_h,player.x,player.y,player_w,player_h);
 if (right == false || left == false) {
     srcX = 0;
 }
-	//ctx.drawImage(this.img,this.x, this.y);
+	ctx.drawImage(this.img,this.x, this.y);
 } 
 
 // Player.prototype.collide=function(block, onGround){
@@ -147,7 +133,7 @@ if (right == false || left == false) {
 
 
 
-Player.prototype.inside=function(shape){
+Enemy.prototype.inside=function(shape){
 // this.Intersects = function(shape)
 	// {
 	var hit_box=this.hitbox();
@@ -177,14 +163,12 @@ Player.prototype.inside=function(shape){
 	//sides touches
 	if(topRight&&bottomRight){
 		this.x=shape_box.Xlow-this.width;
-		if(this.vx>0)
-			this.vx=0;
+		this.vx*=-1;
 		return true;
 	}
 	if(topLeft&&bottomLeft){
 		this.x=shape_box.Xhigh-5;
-		if(this.vx<0)
-			this.vx=0;
+		this.vx*=-1;
 		return true;
 	}
 	if(topLeft&&topRight){
@@ -250,7 +234,7 @@ Player.prototype.inside=function(shape){
 	return false;
 };
 	
-Player.prototype.Contains = function(x, y)
+Enemy.prototype.Contains = function(x, y)
 {
 	if (x >= this.x && x <= this.x + this.width &&
 		y >= this.y && y <= this.y + this.height)
@@ -258,5 +242,3 @@ Player.prototype.Contains = function(x, y)
 	else 
 		return false;
 }
-
-

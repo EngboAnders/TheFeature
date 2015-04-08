@@ -23,19 +23,31 @@ Level.prototype.update = function(ctx){
 		// console.log('making blocks failed');
 	}
 	// try{
-	// 	this.enemies.forEach(this.update());
+		var i =0;
+		while( i<this.enemies.length){
+			// console.log(this.blocks[i]);
+			this.enemies[i].update(ctx,this);
+			
+			i++
+		}
 	// }
 	// catch(e)
 	// {
 	// 	console.log('making enemies failed');
 	// }
-	// try{
-	// 	this.items.forEach(this.update());
-	// }
-	// catch(e)
-	// {
-	// 	console.log('making items failed');
-	// }
+	try{
+		var i =0;
+		while( i<this.items.length){
+			// console.log(this.blocks[i]);
+			this.items[i].update(ctx);
+			
+			i++
+		}
+	}
+	catch(e)
+	{
+		console.log('making items failed');
+	}
 }
 Level.prototype.firstDraw= function(){
 	if(playerStartPosition)
@@ -47,7 +59,8 @@ Level.prototype.firstDraw= function(){
 	//lvl0
 	var lvl0=new Level({'x':10,'y':10});
 	lvl0.blocks.push(new Rectangle(40,40,150,82,imgs[8]));
-	lvl0.blocks.push(new NewLvlRectangle(500,500,150,82,imgs[8],1,{'x':10,'y':10}))
+	lvl0.blocks.push(new NewLvlRectangle(500,500,150,82,imgs[8],1,{'x':10,'y':10}));
+	lvl0.enemies.push(new Enemy({'x':40,'y':10}));
 	levels.push(lvl0);
 
 	//lvl1
