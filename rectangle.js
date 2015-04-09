@@ -60,28 +60,28 @@ NewLvlRectangle.prototype.NextLevel= function(){
 /// item block
 ///
 var item_table=[
-	{'value':0,'img':},//0
-	{'value':1,'img':},//1
-	{'value':2,'img':},//2
-	{'value':3,'img':},//3
-	{'value':4,'img':},//4
-	{'value':5,'img':},//5
-	{'value':6,'img':},//6
-	{'value':7,'img':},//7
-	{'value':8,'img':},//8
-	{'value':9,'img':},//9
-	{'value':'+','img':},//+
-	{'value':'-','img':},//-
-	{'value':'*','img':},//*
-	{'value':'/','img':},//divide
-	{'value':'sqroot','img':},//squareroot
-	{'value':'^2','img':},//^2
-	{'value':'cos','img':},//cos
-	{'value':'sin','img':},//sin
-	{'value':'tan','img':},//tan
-	{'value':'cos^-1','img':},//cos^-1
-	{'value':'sin^-1','img':},//sin^-1
-	{'value':'tan^-1','img':}//tan^-1
+	// {'value':0,'img':},//0
+	// {'value':1,'img':},//1
+	// {'value':2,'img':},//2
+	// {'value':3,'img':},//3
+	// {'value':4,'img':},//4
+	// {'value':5,'img':},//5
+	// {'value':6,'img':},//6
+	// {'value':7,'img':},//7
+	// {'value':8,'img':},//8
+	// {'value':9,'img':},//9
+	// {'value':'+','img':},//+
+	// {'value':'-','img':},//-
+	// {'value':'*','img':},//*
+	// {'value':'/','img':},//divide
+	// {'value':'sqroot','img':},//squareroot
+	// {'value':'^2','img':},//^2
+	// {'value':'cos','img':},//cos
+	// {'value':'sin','img':},//sin
+	// {'value':'tan','img':},//tan
+	// {'value':'cos^-1','img':},//cos^-1
+	// {'value':'sin^-1','img':},//sin^-1
+	// {'value':'tan^-1','img':}//tan^-1
 ];
 var Item = function(x,y,w,h,id){
 	this.id=id;
