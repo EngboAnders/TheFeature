@@ -52,7 +52,7 @@
 		//1
 		"imgs/blok-buttom-dark-kant-don.png",
 		//0
-		"imgs/pil5.png"
+		"imgs/pil.png"
 		
 		
 	];
