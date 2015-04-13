@@ -110,14 +110,14 @@ Level.prototype.firstDraw= function(){
 	//Person
 	lvl0.blocks.push(new Rectangle(475,545,103,103,imgs[6]));
 	//product
-<<<<<<< HEAD
+
 	lvl0.blocks.push(new Rectangle(580,545,103,103,imgs[4]));
 
 //items
 	lvl0.items.push(new Item(650,400,2));
-=======
+
 	lvl0.blocks.push(new Rectangle(580,545,103,103,imgs[5]));
->>>>>>> origin/master
+
 	
 */
 	// lvl0.blocks.push(new Rectangle(540,545,150,82,imgs[4]));
