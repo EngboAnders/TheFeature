@@ -39,7 +39,7 @@ Level.prototype.update = function(ctx){
 		var i =0;
 		while( i<this.items.length){
 			// console.log(this.blocks[i]);
-			this.items[i].update(ctx);
+			this.items[i].Draw(ctx);
 			
 			i++
 		}
@@ -101,6 +101,9 @@ Level.prototype.firstDraw= function(){
 	lvl0.blocks.push(new Rectangle(475,545,103,103,imgs[5]));
 	//product
 	lvl0.blocks.push(new Rectangle(580,545,103,103,imgs[4]));
+
+//items
+	lvl0.items.push(new Item(650,400,2));
 	
 
 	// lvl0.blocks.push(new Rectangle(540,545,150,82,imgs[4]));

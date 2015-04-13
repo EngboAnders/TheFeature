@@ -57,59 +57,57 @@ NewLvlRectangle.prototype.NextLevel= function(){
 	player.setPosition(this.player_new_position);
 }
 ///
-/// item block
+/// item block Note pisture step 64 px
 ///
 var item_table=[
-	// {'value':0,'img':},//0
-	// {'value':1,'img':},//1
-	// {'value':2,'img':},//2
-	// {'value':3,'img':},//3
-	// {'value':4,'img':},//4
-	// {'value':5,'img':},//5
-	// {'value':6,'img':},//6
-	// {'value':7,'img':},//7
-	// {'value':8,'img':},//8
-	// {'value':9,'img':},//9
-	// {'value':'+','img':},//+
-	// {'value':'-','img':},//-
-	// {'value':'*','img':},//*
-	// {'value':'/','img':},//divide
-	// {'value':'sqroot','img':},//squareroot
-	// {'value':'^2','img':},//^2
-	// {'value':'cos','img':},//cos
-	// {'value':'sin','img':},//sin
-	// {'value':'tan','img':},//tan
-	// {'value':'cos^-1','img':},//cos^-1
-	// {'value':'sin^-1','img':},//sin^-1
-	// {'value':'tan^-1','img':}//tan^-1
+	{'value':0,'img':0},//0
+	{'value':1,'img':1},//1
+	{'value':2,'img':2},//2
+	{'value':3,'img':3},//3
+	{'value':4,'img':4},//4
+	{'value':5,'img':5},//5
+	{'value':6,'img':6},//6
+	{'value':7,'img':7},//7
+	{'value':8,'img':8},//8
+	{'value':9,'img':9},//9
+	{'value':'+','img':10},//+
+	{'value':'-','img':11},//-
+	{'value':'*','img':12},//*
+	{'value':'/','img':13},//divide
+	{'value':'sqroot','img':14},//squareroot
+	{'value':'^2','img':15},//^2
+	{'value':'cos','img':16},//cos
+	{'value':'sin','img':17},//sin
+	{'value':'tan','img':18},//tan
+	{'value':'cos^-1','img':19},//cos^-1
+	{'value':'sin^-1','img':20},//sin^-1
+	{'value':'tan^-1','img':21}//tan^-1
 ];
-var Item = function(x,y,w,h,id){
+var Item = function(x,y,id){
 	this.id=id;
 	this.img=new Image();
-	this.img.src = item_pics[id].img;
+	this.img.src = 'imgs/items_sprite_mini.png';
 	this.value = item_table;
 	this.x=x;
 	this.y=y;
 	this.current_bounce=0;
 	this.max_bounce=5;
 	this.up=true;
-	this.box= new Rectangle(x,y,w,h,img)
+	this.box= new Rectangle(x,y,30,30,img)
 }
 Item.prototype.hitbox=function(){
 	return this.box.hitbox();
 }
 Item.prototype.Draw = function(ctx){
-	if(this.current_bounce=max_bounce)
-		this.up=false;
-	if(this.current_bounce=0)
-		this.up=true;
-	if(this.up)
-		current_bounce++;
-	else
-		current_bounce--;
-
-	this.box.Update(this.x, this.y+this.current_bounce)
-	this.box.Draw(ctx);
+	this.box.Update(this.x, this.y)
+	ctx.drawImage(
+		this.img, 
+		30*this.id,
+		0/*y cordinate in the sprite is always 0*/,
+		30,30/*the seperate sprites in the sheet is 64x64*/,
+		this.x, this.y,
+		30,30/*<-- check last comment*/);
+	//ctx.drawImage(this.img,srcX,srcY,player_w,player_h,player.x,player.y,player_w,player_h);
 }
 Item.prototype.Contains = function(x,y){
 	var bool=this.box.Contains(x,y);
@@ -119,6 +117,8 @@ Item.prototype.Contains = function(x,y){
 }
 Item.prototype.pick_up_item=function(){
 	var inventory=JSON.parse(localStorage.getItem('inventory'));
+	if(inventory==null)
+		inventory=[];
 	inventory.push(this.id);
 	localStorage.setItem('inventory',JSON.stringify(inventory));
 	current_level.items.splice(current_level.items.indexOf(this),1);
