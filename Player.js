@@ -1,5 +1,5 @@
 //player physics
-var oldY, oldX, speed=6, slowing_speed = 0.9, speed_up=5, bounceFactor = 0.0001, gravity=9.3, update_move=true;
+var speed=6, slowing_speed = 0.9, speed_up=5, bounceFactor = 0.0001, gravity=9.3;
 
 var player_w = 22, player_h = 66, srcX = 10, srcY = 0;
 
@@ -13,6 +13,9 @@ var Player = function(position) {
 	this.width= 15;
 	this.height= 22;
 	this.grounded = false;
+	this.oldX;
+	this.oldY;
+	this.update_move=true;
 };
 Player.prototype.hitbox=function(){
 	return {
@@ -24,12 +27,12 @@ Player.prototype.hitbox=function(){
 }
 Player.prototype.update = function(current_level){
 	this.render();
-	update_move=true;
+	this.update_move=true;
 	var onGround=-1;
 	// user interaction
 	
-	oldY=this.y;
-	oldX=this.x;
+	this.oldY=this.y;
+	this.oldX=this.x;
 	
 	if(!this.grounded){
 		this.vy += gravity*(progress/100);
@@ -100,7 +103,7 @@ Player.prototype.update = function(current_level){
 
 	
 
-	if(update_move){
+	if(this.update_move){
 		this.x += this.vx*(progress/1000)*3;
 		this.y += this.vy;
 	}
@@ -145,6 +148,7 @@ if (right == false || left == false) {
 
 
 Player.prototype.inside=function(shape){
+	// console.log(shape);
 // this.Intersects = function(shape)
 	// {
 	var hit_box=this.hitbox();
@@ -201,39 +205,39 @@ Player.prototype.inside=function(shape){
 	if(topLeft||topRight||bottomLeft||bottomRight){
 		
 		if(topLeft){
-			oldX++;
-			oldY++;
+			this.oldX++;
+			this.oldY++;
 			if(this.vx<0)
 				this.vx=0;
 			if(this.vy<0)
 				this.vy=0;
 		}
 		if(topRight){
-			oldX--;
-			oldY++;
+			this.oldX--;
+			this.oldY++;
 			if(this.vx>0)
 				this.vx=0;
 			if(this.vy<0)
 				this.vy=0;
 		}
 		if(bottomLeft){
-			oldX++;
-			oldY--;
+			this.oldX++;
+			this.oldY--;
 			if(this.vx<0)
 				this.vx=0;
 			if(this.vy>0)
 				this.vy=0;
 		}
 		if(bottomRight){
-			oldX--;
-			oldY--;
+			this.oldX--;
+			this.oldY--;
 			if(this.vx>0)
 				this.vx=0;
 			if(this.vy>0)
 				this.vy=0;
 		}
-		this.x=oldX;
-		this.y=oldY;
+		this.x=this.oldX;
+		this.y=this.oldY;
 		
 		return true;
 	}

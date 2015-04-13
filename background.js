@@ -30,8 +30,11 @@ Particle.prototype.render = function(){
 		this.to_remove=true;
 	}
 	// ctx.fillRect(this.x, this.y, this.speed.y*size, this.speed.y*size);
-	ctx.font = 'bold ' + this.speed.y*size +'px matrix';//*/+(this.speed.y*speed<9?'-webkit-text-stroke: 0.35px':"");
+	ctx.font = 'bold ' + this.speed.y*size +'px matrix';//*/+(this.speed.y*speed<9?'"");
 	ctx.fillStyle = 'green';
+	ctx.shadowOffsetX=5;
+  	ctx.shadowOffsetY=5;
+  	ctx.shadowBlur=10;
 	for(i=0;i<this.number_text.length;i++)
 		ctx.fillText(this.number_text.charAt(i),this.x,this.y-i*size)
 
