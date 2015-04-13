@@ -1,28 +1,60 @@
 //imgs
 	var imgs=[];
 	var img_path_list=[
+		//24
+		"imgs/mand3.png",
+		//23
+		"imgs/mand2.png",
+		//22
 		"imgs/a rose rose is a rosed rose in a rose.png",
+		//21
 		"imgs/activityDiagramEnd.png",
+		//20
 		"imgs/activityDiagramStart.png",
+		//19
 		"imgs/aRoseIsARose.png",
+		//18
 		"imgs/association.png",
+		//17
 		"imgs/associationHorizontal.png",
+		//16
 		"imgs/decision.png",
+		//15
 		"imgs/dividers.png",
+		//14
 		"imgs/employee.png",
+		//13
 		"imgs/employeer.png",
+		//12
 		"imgs/hourglass.png",
+		//11
 		"imgs/inheritage.png",
+		//10
 		"imgs/measureOfUnit.png",
+		//9
 		"imgs/note.png",
+		//8
 		"imgs/order.png",
+		//7
 		"imgs/partOrder.png",
+		//6
 		"imgs/person.png",
+		//5
 		"imgs/product.png",
+		//5
 		"imgs/Rosed.png",
+		//4
 		"imgs/rumb.png",
+		//3
 		"imgs/teachesTo.png",
-		"imgs/wooshSprite.png"
+		//2
+		"imgs/wooshSprite.png",
+		//1
+		"imgs/blok-buttom-dark-kant-don.png",
+		//0
+		"imgs/pil5.png"
+		
+		
 	];
 
 // $.fn.preload = function() {
