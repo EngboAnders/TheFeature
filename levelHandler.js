@@ -116,12 +116,12 @@ Level.prototype.firstDraw= function(){
 	// lvl0.blocks.push(new Rectangle(20,545,150,82,imgs[1]));
 
 	// note to next level
-<<<<<<< HEAD
+
 	lvl0.blocks.push(new NewLvlRectangle(752,570,150,82,imgs[10],1,{'x':10,'y':10}))
-=======
+
 	lvl0.blocks.push(new NewLvlRectangle(750,555,150,82,imgs[8],1,{'x':10,'y':10}))
 
->>>>>>> origin/master
+
 	levels.push(lvl0);
 
 	//lvl1
