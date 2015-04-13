@@ -52,7 +52,11 @@
 		//1
 		"imgs/blok-buttom-dark-kant-don.png",
 		//0
+<<<<<<< HEAD
 		"imgs/pil6.png"
+=======
+		"imgs/pil.png"
+>>>>>>> origin/master
 		
 		
 	];

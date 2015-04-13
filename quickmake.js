@@ -14,7 +14,7 @@ var user;
 // background is for all fancy stuff you see in the distance
 // gameground is where the player and all the obsticals are
 // forground is where all the fancy stuff that is blockking your view are
-var background, forground, gameground;
+var background, forground, gameground, menu;
 
 var load = function(){
 	user=localStorage.getItem('User');
@@ -34,6 +34,9 @@ var load = function(){
 		Forground(ctx);
 	}
 
+	menu = function(ctx){
+		SplashScreen(ctx);
+	}
 };
 
 function clearCanvas() {
@@ -43,9 +46,13 @@ function clearCanvas() {
 function update(){
 	if(canvas!=null){
 		clearCanvas();
-		background(ctx);
-		gameground(ctx);
-		forground(ctx);
+		menu(ctx);
+		if (menu_instance == true) {
+		 	clearCanvas();
+		 	background(ctx);
+		 	gameground(ctx);
+		 	forground(ctx);
+		};
 	}
 };
 
@@ -53,7 +60,7 @@ function step(step_in_time){
   	progress = step_in_time - start_step_in_time;
   	collected_time += progress;
   	// if(progress>0)
-	  	update(progress);
+	  	update();
 	start_step_in_time = step_in_time;
   	window.requestAnimationFrame(step);
 };
