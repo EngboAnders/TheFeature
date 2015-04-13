@@ -84,7 +84,7 @@ Level.prototype.firstDraw= function(){
 	//rump
 	lvl0.blocks.push(new Rectangle(650,462,161,92,imgs[4]));
 	//employeer
-	lvl0.blocks.push(new Rectangle(110,423,103,103,imgs[14]));
+//	lvl0.blocks.push(new Rectangle(110,423,103,103,imgs[14]));
 	//hourglass
 	lvl0.blocks.push(new Rectangle(800,300,84,124,imgs[13]));
 
@@ -94,6 +94,11 @@ Level.prototype.firstDraw= function(){
 
 	//buttom-blok
 	lvl0.blocks.push(new Rectangle(170,538,503,93,imgs[1]));
+
+	//left-blok
+	lvl0.blocks.push(new Rectangle(39,235,152,323,imgs[24]));
+
+
 /*
 
 	//measureOfUnit

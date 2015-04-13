@@ -1,6 +1,8 @@
 //imgs
 	var imgs=[];
 	var img_path_list=[
+		//23
+		"imgs/mand2.png",
 		//22
 		"imgs/a rose rose is a rosed rose in a rose.png",
 		//21
