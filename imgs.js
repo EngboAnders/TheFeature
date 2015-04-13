@@ -1,6 +1,8 @@
 //imgs
 	var imgs=[];
 	var img_path_list=[
+		//24
+		"imgs/mand3.png",
 		//23
 		"imgs/mand2.png",
 		//22

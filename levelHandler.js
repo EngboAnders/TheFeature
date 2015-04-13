@@ -96,9 +96,9 @@ Level.prototype.firstDraw= function(){
 	lvl0.blocks.push(new Rectangle(170,538,503,93,imgs[1]));
 
 	//left-blok
-	lvl0.blocks.push(new Rectangle(39,235,152,323,imgs[24]));
-
-
+	lvl0.blocks.push(new Rectangle(39,235,142,323,imgs[24]));
+//	lvl0.blocks.push(new Rectangle(542,235,142,323,imgs[24]));
+	lvl0.blocks.push(new Rectangle(654,235,142,323,imgs[25]));
 /*
 
 	//measureOfUnit
