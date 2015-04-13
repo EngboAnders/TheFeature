@@ -1,6 +1,7 @@
 //forground
 // scorebord here
 var woosh_img;
+var pil;
 var woosh_step=650;
 var Forground_instance = false;
 var something_iterator=0;
@@ -13,6 +14,15 @@ var Forground =function(ctx){
 		ctx.textBaseline = 'top';
 		ctx.textAlign = 'left';
 		ctx.fillText('Time passed: '+Math.floor(collected_time/1000), 300, 20);
+
+
+		pil = new Image();
+		pil.src='imgs/pil6.png';
+		ctx.drawImage(pil, 327, 510);
+
+	
+			
+	
 
 	}
 	else{
