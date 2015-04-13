@@ -8,17 +8,43 @@ var something_iterator=0;
 var Forground =function(ctx){
 	if(Forground_instance){
 		//
+		var overlay= new Image();
+		overlay.src='imgs/overlay.png';
+		ctx.drawImage(overlay, 0,0);
 		// ctx.drawImage(woosh_img,srcX,0,W,H,0,0,W,H)
 		ctx.fillStyle = 'white';
 		ctx.font = '30px Verdana, sans-serif';
 		ctx.textBaseline = 'top';
 		ctx.textAlign = 'left';
-		ctx.fillText('Time passed: '+Math.floor(collected_time/1000), 300, 20);
-
-
-		pil = new Image();
-		pil.src='imgs/pil6.png';
-		ctx.drawImage(pil, 327, 510);
+		ctx.fillText(Math.floor(collected_time/1000), 714, 606);
+		
+		itm_img=new Image();
+		itm_img.src = 'imgs/items_sprite_mini.png';
+		var items = JSON.parse(localStorage.getItem('inventory'));
+		var inv_x=2;
+		var inv_y=583;
+		for(i=0;i<items.length;i++){
+			var itm_id=items[i]
+			
+			if(i<11)
+				ctx.drawImage(
+					itm_img, 
+					30*itm_id,
+					0/*y cordinate in the sprite is always 0*/,
+					30,30/*the seperate sprites in the sheet is 64x64*/,
+					inv_x, inv_y,//topleft corner of item
+					30,30/*<-- check last comment*/
+				);
+			inv_x+=34;
+			if(inv_x>180){
+				inv_x=2;
+				inv_y=622;
+			}
+		}
+		//move to game background or for ground
+		// pil = new Image();
+		// pil.src='imgs/pil6.png';
+		// ctx.drawImage(pil, 327, 510);
 
 	
 			

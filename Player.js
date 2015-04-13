@@ -176,6 +176,11 @@ Player.prototype.inside=function(shape){
 	// if(bottomRight)
 	// 	console.log('bottomRight')
 	//sides touches
+	if(topRight&&topLeft&&bottomRight&&bottomLeft){
+		this.vy=0;
+		this.y=shape_box.Ylow-this.height;
+	}
+
 	if(topRight&&bottomRight){
 		this.x=shape_box.Xlow-this.width;
 		if(this.vx>0)

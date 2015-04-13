@@ -6,6 +6,9 @@ W = 900,//*/window.innerWidth-33,
 H = 650;//*/window.innerHeight-33;
 // player stuff goes here! Such as speed, bouncability and such
 
+//User
+
+var user;
 
 // Layers
 // background is for all fancy stuff you see in the distance
@@ -14,6 +17,10 @@ H = 650;//*/window.innerHeight-33;
 var background, forground, gameground;
 
 var load = function(){
+	user=localStorage.getItem('User');
+	if(user==null||user==undefined)
+		user=new User();
+
 	canvas = document.getElementById('gameCanvas'); //get Canvas
 	canvas.height = H; canvas.width = W;  			//set dimentions
 	ctx = canvas.getContext('2d');					//get Context
@@ -52,3 +59,20 @@ function step(step_in_time){
 };
 window.addEventListener('load', load, false);
 window.requestAnimationFrame(step);
+
+
+var User =function(){
+	this.name;
+	this.password;
+}
+User.prototype.getInventory=function(){
+	var inventory=[];
+	var localInventory=JSON.parse(localStorage.getItem('inventory'));
+	var dbInventory=[]
+	if(localInventory!=null||localInventory!=undefined)
+		inventory=localInventory;
+	
+}
+User.prototype.setInventory=function(){
+
+}
