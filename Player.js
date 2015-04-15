@@ -1,4 +1,5 @@
 //player physics
+var print=false;
 var speed=6, slowing_speed = 0.9, speed_up=5, bounceFactor = 0.0001, gravity=9.3;
 
 var player_w = 22, player_h = 66, srcX = 10, srcY = 0;
@@ -42,9 +43,9 @@ Player.prototype.update = function(current_level){
 	
 	// this.vy *= slowing_speed;
 		//Collide Detection Screen
-	if(this.hitbox().Yhigh > H-5) {
+	if(this.hitbox().Yhigh > H) {
 		onGround++;
-		this.y = H - this.height-5;
+		this.y = H - this.height;
 		this.vy *= -bounceFactor;
 	}
 	if(this.hitbox().Xhigh > W-5) {
@@ -52,7 +53,10 @@ Player.prototype.update = function(current_level){
 		this.vx *= -bounceFactor;
 	}
 	if(this.hitbox().Ylow < 0) {
-		this.y = 0;
+		if(this.y=0)
+			this.y=5;
+		else
+			this.y = 0;
 		this.vy *= -bounceFactor;
 	}
 	if(this.hitbox().Xlow < 0) {
@@ -101,7 +105,11 @@ Player.prototype.update = function(current_level){
 	this.vy *= slowing_speed;
 	this.vx *= slowing_speed;
 
-	
+	if(print){
+		console.log(this.update_move);
+		console.log(this.x);
+		console.log(this.y);
+	}
 
 	if(this.update_move){
 		this.x += this.vx*(progress/1000)*3;

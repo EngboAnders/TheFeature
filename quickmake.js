@@ -17,10 +17,6 @@ var user;
 var background, forground, gameground, menu;
 
 var load = function(){
-	user=localStorage.getItem('User');
-	if(user==null||user==undefined)
-		user=new User();
-
 	canvas = document.getElementById('gameCanvas'); //get Canvas
 	canvas.height = H; canvas.width = W;  			//set dimentions
 	ctx = canvas.getContext('2d');					//get Context
@@ -68,18 +64,3 @@ window.addEventListener('load', load, false);
 window.requestAnimationFrame(step);
 
 
-var User =function(){
-	this.name;
-	this.password;
-}
-User.prototype.getInventory=function(){
-	var inventory=[];
-	var localInventory=JSON.parse(localStorage.getItem('inventory'));
-	var dbInventory=[]
-	if(localInventory!=null||localInventory!=undefined)
-		inventory=localInventory;
-	
-}
-User.prototype.setInventory=function(){
-
-}

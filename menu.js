@@ -7,7 +7,7 @@ var SplashScreen = function(ctx){
 }
 
 function draw(ctx){
-	console.log('dddd');
+	// console.log('dddd');
 	var color = 'rgb(' + 1 + ',0,0)';
 
 	ctx.fillStyle = 'White';
