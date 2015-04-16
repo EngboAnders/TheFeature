@@ -33,19 +33,19 @@ Enemy.prototype.hitbox=function(){
 }
 Enemy.prototype.update = function(ctx,current_level){
 	this.render(ctx);
-	if(this.x==this.position_from.x&&this.y==this.position_from.y){
+	if(this.x<=this.position_from.x&&this.y<=this.position_from.y){
 		going_forth=true;
 	}
-	if(this.x==this.position_to.x&&this.y==this.position_to.y){
+	if(this.x>=this.position_to.x&&this.y>=this.position_to.y){
 		going_forth=false;
 	}
 	if(going_forth){
-		this.x+=this.speedx;
-		this.y+=this.speedy;
+		this.x+=this.speedx*(progress/1000);
+		this.y+=this.speedy*(progress/1000);
 	}
 	else if (!going_forth){
-		this.x-=this.speedx;
-		this.y-=this.speedy;
+		this.x-=this.speedx*(progress/1000);
+		this.y-=this.speedy*(progress/1000);
 	}
 }
 

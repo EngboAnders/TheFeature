@@ -21,6 +21,8 @@ var Forground =function(ctx){
 		itm_img=new Image();
 		itm_img.src = 'imgs/items_sprite_mini.png';
 		var items = JSON.parse(localStorage.getItem('inventory'));
+		if(items==null)
+			items=[];
 		var inv_x=2;
 		var inv_y=583;
 		for(i=0;i<items.length;i++){

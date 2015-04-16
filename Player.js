@@ -112,6 +112,7 @@ Player.prototype.update = function(current_level){
 	}
 
 	if(this.update_move){
+
 		this.x += this.vx*(progress/1000)*3;
 		this.y += this.vy;
 	}
@@ -175,31 +176,37 @@ Player.prototype.inside=function(shape){
 	if(shape.Contains(hit_box.Xhigh , hit_box.Yhigh ))
 		bottomRight=true;
 
-	// if(topLeft)
-	// 	console.log('topLeft')
-	// if(topRight)
-	// 	console.log('topRight')
-	// if(bottomLeft)
-	// 	console.log('bottomLeft')
-	// if(bottomRight)
-	// 	console.log('bottomRight')
+	if(topLeft)
+		console.log('topLeft')
+	if(topRight)
+		console.log('topRight')
+	if(bottomLeft)
+		console.log('bottomLeft')
+	if(bottomRight)
+		console.log('bottomRight')
 	//sides touches
 	if(topRight&&topLeft&&bottomRight&&bottomLeft){
 		this.vy=0;
 		this.y=shape_box.Ylow-this.height;
 	}
 
+	if(bottomLeft&&bottomRight){
+		this.y=shape_box.Ylow-this.height;
+		if(this.vy>0)
+			this.vy=0;
+		return true;
+	}
 	if(topRight&&bottomRight){
 		this.x=shape_box.Xlow-this.width;
 		if(this.vx>0)
 			this.vx=0;
-		return true;
+		return false;
 	}
 	if(topLeft&&bottomLeft){
 		this.x=shape_box.Xhigh-5;
 		if(this.vx<0)
 			this.vx=0;
-		return true;
+		return false;
 	}
 	if(topLeft&&topRight){
 		this.y=shape_box.Yhigh;
@@ -207,12 +214,7 @@ Player.prototype.inside=function(shape){
 			this.vy=0;
 		return false;
 	}
-	if(bottomLeft&&bottomRight){
-		this.y=shape_box.Ylow-this.height;
-		if(this.vy>0)
-			this.vy=0;
-		return true;
-	}
+	
 
 	//corners
 	if(topLeft||topRight||bottomLeft||bottomRight){

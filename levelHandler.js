@@ -62,7 +62,7 @@ Level.prototype.firstDraw= function(){
 
 	// lvl0.blocks.push(new Rectangle(40,40,150,82,imgs[8]));
 	// lvl0.blocks.push(new NewLvlRectangle(500,500,150,82,imgs[8],1,{'x':10,'y':10}));
-	lvl0.enemies.push(new Enemy({'x':40,'y':10},{'x':400,'y':10},80,40));
+	lvl0.enemies.push(new Enemy({'x':40,'y':10},{'x':400,'y':10},8,40));
 
 
 //top
