@@ -33,6 +33,17 @@ var load = function(){
 	menu = function(ctx){
 		SplashScreen(ctx);
 	}
+	function shoot(){
+	try{
+		for(var i=0;current_level.guns.length>i;i++){
+			current_level.guns[i].shoot();
+		}
+	}
+	catch(e){
+		console.log(e);
+	}
+}
+window.addEventListener('click',shoot);
 };
 
 function clearCanvas() {
@@ -60,6 +71,7 @@ function step(step_in_time){
 	start_step_in_time = step_in_time;
   	window.requestAnimationFrame(step);
 };
+
 window.addEventListener('load', load, false);
 window.requestAnimationFrame(step);
 

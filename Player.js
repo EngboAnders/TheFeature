@@ -30,7 +30,6 @@ Player.prototype.update = function(current_level){
 	this.render();
 	this.update_move=true;
 	var onGround=-1;
-	// user interaction
 	
 	this.oldY=this.y;
 	this.oldX=this.x;
@@ -39,10 +38,6 @@ Player.prototype.update = function(current_level){
 		this.vy += gravity*(progress/100);
 	}
 	
-
-	
-	// this.vy *= slowing_speed;
-		//Collide Detection Screen
 	if(this.hitbox().Yhigh > H) {
 		onGround++;
 		this.y = H - this.height;
@@ -73,35 +68,22 @@ Player.prototype.update = function(current_level){
 	if (right)//d
 		this.vx+=speed;
  
-	
 	// stuff
 	var i = 0;
-	// var collide_i=-1;
 	this.grounded=false;
 	while(i<current_level.blocks.length){
-	// for(var block in current_level.blocks)
-		// var oldGround=onGround;
 		if(this.inside(current_level.blocks[i],onGround))
 			this.grounded=true;
-		// if(oldGround!=onGround)
-		// 	collide_i=i;
 		i++;
 	}
-	// if(onGround>-1)
-	// 	this.grounded=true;
-	// else
-	// 	this.grounded=false;
 
 	for(var enemy in current_level.enemies)
 		this.inside(current_level.enemies[enemy]);
 	for(var item in current_level.items)
 		this.inside(current_level.items[item]);
+	for(var gun in current_level.guns)
+		this.inside(current_level.guns[gun]);
 
-	
-// }
-// Player.prototype.movement= function(){
-	//Physics 
-	// console.log(progress/100);
 	this.vy *= slowing_speed;
 	this.vx *= slowing_speed;
 
@@ -116,9 +98,6 @@ Player.prototype.update = function(current_level){
 		this.x += this.vx*(progress/1000)*3;
 		this.y += this.vy;
 	}
-	
-
-	
 }
 
 Player.prototype.setPosition=function(pos){
@@ -134,60 +113,45 @@ Player.prototype.render=function(){
 	} else if (left) {
 	    srcY = 72;
 	}
-	  ctx.drawImage(this.img,srcX,srcY,player_w,player_h,player.x,player.y,player_w,player_h);
+	ctx.drawImage(this.img,srcX,srcY,player_w,player_h,player.x,player.y,player_w,player_h);
 	if (right == false || left == false) {
 	    srcY = 0;
 	}
-	//ctx.drawImage(this.img,this.x, this.y);
 } 
-
-// Player.prototype.collide=function(block, onGround){
-// 	// console.log(this.hitbox());
-// 	// console.log(block.hitbox());
-// 	if(this.inside(block)){
-// 		onGround++;
-// 		// if(this.hitbox().Ylow<block.hitbox().Yhigh&&this.hitbox().Yhigh>block.hitbox().Yhigh){
-// 		// 	this.vy += gravity*(progress/100);
-// 		// 	this.y 	+= this.vy;
-// 		// }
-// 	}
-// 	return onGround;
-// }
-
-
 
 Player.prototype.inside=function(shape){
 	// console.log(shape);
-// this.Intersects = function(shape)
-	// {
+	// this.Intersects = function(shape)
 	var hit_box=this.hitbox();
 	var shape_box = shape.hitbox();
 	var topLeft=false;
 	var topRight=false;
 	var bottomLeft=false;
 	var bottomRight=false;
+	// console.log(shape);
 	//checks for corners
-	if (shape.Contains(hit_box.Xlow , hit_box.Ylow ))
+	if (shape.contains(hit_box.Xlow , hit_box.Ylow ))
 		topLeft=true; 
-	if(shape.Contains(hit_box.Xhigh , hit_box.Ylow ))
+	if(shape.contains(hit_box.Xhigh , hit_box.Ylow ))
 		topRight=true;
-	if(shape.Contains(hit_box.Xlow , hit_box.Yhigh ))
+	if(shape.contains(hit_box.Xlow , hit_box.Yhigh ))
 		bottomLeft=true;
-	if(shape.Contains(hit_box.Xhigh , hit_box.Yhigh ))
+	if(shape.contains(hit_box.Xhigh , hit_box.Yhigh ))
 		bottomRight=true;
 
-	if(topLeft)
+	if(topLeft&&print)
 		console.log('topLeft')
-	if(topRight)
+	if(topRight&&print)
 		console.log('topRight')
-	if(bottomLeft)
+	if(bottomLeft&&print)
 		console.log('bottomLeft')
-	if(bottomRight)
+	if(bottomRight&&print)
 		console.log('bottomRight')
+
 	//sides touches
 	if(topRight&&topLeft&&bottomRight&&bottomLeft){
 		this.vy=0;
-		this.y=shape_box.Ylow-this.height;
+		this.y=shape_box.Ylow;
 	}
 
 	if(bottomLeft&&bottomRight){
@@ -215,7 +179,6 @@ Player.prototype.inside=function(shape){
 		return false;
 	}
 	
-
 	//corners
 	if(topLeft||topRight||bottomLeft||bottomRight){
 		
@@ -236,18 +199,20 @@ Player.prototype.inside=function(shape){
 				this.vy=0;
 		}
 		if(bottomLeft){
-			this.oldX++;
-			this.oldY--;
-			if(this.vx<0)
-				this.vx=0;
+			this.oldY=shape_box.Ylow-this.height
+			// this.oldX++;
+			// this.oldY--;
+			// if(this.vx<0)
+			// 	this.vx=0;
 			if(this.vy>0)
 				this.vy=0;
 		}
 		if(bottomRight){
-			this.oldX--;
-			this.oldY--;
-			if(this.vx>0)
-				this.vx=0;
+			this.oldY=shape_box.Ylow-this.height
+			// this.oldX--;
+			// this.oldY--;
+			// if(this.vx>0)
+			// 	this.vx=0;
 			if(this.vy>0)
 				this.vy=0;
 		}
@@ -257,16 +222,10 @@ Player.prototype.inside=function(shape){
 		return true;
 	}
 	
-	// else if (shape.Contains(this.x , this.y ) || shape.Contains(this.x + this.width , this.y ) ||
-	// 	shape.Contains(this.x , this.y + this.height ) || shape.Contains(this.x + this.width , this.y + this.height ))
-	// {
-	// 	return true;
-	// }
-	
 	return false;
 };
 	
-Player.prototype.Contains = function(x, y)
+Player.prototype.contains = function(x, y)
 {
 	if (x >= this.x && x <= this.x + this.width &&
 		y >= this.y && y <= this.y + this.height)

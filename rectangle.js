@@ -1,3 +1,6 @@
+///////////////////////////////////////////////////////////////////////////////////////
+///basic building block////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
 var Rectangle = function(x, y,w,h,img)
 {
 	this.image = img;
@@ -5,6 +8,7 @@ var Rectangle = function(x, y,w,h,img)
 	this.y		= y;
 	this.width	= w;
 	this.height	= h;
+	// console.log(this.image);
 };
 
 Rectangle.prototype.hitbox=function(){
@@ -14,51 +18,53 @@ Rectangle.prototype.hitbox=function(){
 		'Xhigh':this.x+this.width, 
 		'Yhigh':this.y+this.height
 	};
-}
+};
 
-Rectangle.prototype.Draw = function(ctx){
+Rectangle.prototype.draw = function(ctx){
+	// console.log(this.image);
 	ctx.drawImage(this.image, this.x, this.y);
-}
+};
 
-Rectangle.prototype.Contains = function(x, y)
+Rectangle.prototype.contains = function(x, y)
 {
 	if (x >= this.x && x <= this.x + this.width &&
 		y >= this.y && y <= this.y + this.height)
 		return true;
 	else 
 		return false;
-}
-Rectangle.prototype.Update=function(x,y){
+};
+Rectangle.prototype.update=function(x,y){
 	this.x=x;
 	this.y=y;
-}
-///
-///  New level block
-///
+};
+///////////////////////////////////////////////////////////////////////////////////////
+///  New level block///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
 
 var NewLvlRectangle = function(x, y, w,h, img, level_going_to, player_new_position){
 	this.box = new Rectangle(x,y,w,h,img);
 	this.level_going_to=level_going_to;
 	this.player_new_position=player_new_position;
-}
+};
 NewLvlRectangle.prototype.hitbox=function(){
 	return this.box.hitbox();
-}
-NewLvlRectangle.prototype.Draw = function(ctx){
-	this.box.Draw(ctx);
-}
-NewLvlRectangle.prototype.Contains = function(x,y){
-	var bool=this.box.Contains(x,y);
+};
+NewLvlRectangle.prototype.draw = function(ctx){
+	this.box.draw(ctx);
+};
+NewLvlRectangle.prototype.contains = function(x,y){
+	var bool=this.box.contains(x,y);
 	if(bool)
-		this.NextLevel();
-}
-NewLvlRectangle.prototype.NextLevel= function(){
+		this.nextLevel();
+};
+NewLvlRectangle.prototype.nextLevel= function(){
 	current_level=levels[this.level_going_to];
 	player.setPosition(this.player_new_position);
-}
-///
-/// item block Note pisture step 64 px
-///
+};
+
+//////////////////////////////////////////////////////////////////////////////////////
+/// item block Note pisture step 64 px////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 var item_table=[
 	{'value':0,'img':0},//0
 	{'value':1,'img':1},//1
@@ -93,13 +99,15 @@ var Item = function(x,y,id){
 	this.current_bounce=0;
 	this.max_bounce=5;
 	this.up=true;
-	this.box= new Rectangle(x,y,30,30,img)
-}
+	var image=new Image();
+	image.src='imgs/itemBlock.png';
+	this.box= new Rectangle(x,y,30,30,image);
+};
 Item.prototype.hitbox=function(){
 	return this.box.hitbox();
-}
-Item.prototype.Draw = function(ctx){
-	this.box.Update(this.x, this.y)
+};
+Item.prototype.draw = function(ctx){
+	this.box.draw(ctx);
 	ctx.drawImage(
 		this.img, 
 		30*this.id,
@@ -108,18 +116,69 @@ Item.prototype.Draw = function(ctx){
 		this.x, this.y,
 		30,30/*<-- check last comment*/);
 	//ctx.drawImage(this.img,srcX,srcY,player_w,player_h,player.x,player.y,player_w,player_h);
-}
-Item.prototype.Contains = function(x,y){
-	var bool=this.box.Contains(x,y);
+};
+Item.prototype.contains = function(x,y){
+	var bool=this.box.contains(x,y);
 	if(bool)
 		this.pick_up_item();
 	return bool;
-}
+};
 Item.prototype.pick_up_item=function(){
 	var inventory=JSON.parse(localStorage.getItem('inventory'));
 	if(inventory==null)
 		inventory=[];
-	inventory.push(this.id);
+	if(inventory.indexOf(this.id)<0)
+		inventory.push(this.id);
 	localStorage.setItem('inventory',JSON.stringify(inventory));
 	current_level.items.splice(current_level.items.indexOf(this),1);
+};
+///////////////////////////////////////////////////////////////////////////////////////
+///projectile//////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+var Projectile = function(x,y,movefunction){
+	this.startX=x;
+	this.startY=y;
+	this.x=x;
+	this.y=y;
+	this.img=new Image();
+	this.img.src='imgs/shot.png';
+	this.movement=movefunction;
+	this.box=new Rectangle(x+15,y+19,45,38,img)
+};
+Projectile.prototype.update=function(ctx){
+	this.movement(this);
+	this.box.draw(ctx);
 }
+//////////////////////////////////////////////////////////////////////////////////////
+///canon//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+var Canon = function(x,y){
+	this.x=x;
+	this.y=y;
+	this.img=new Image();
+	this.img.src='imgs/canon.png';
+	this.box=new Rectangle(x,y,105,105,this.img);
+	this.hitablebox=new Rectangle(x,y+80,105,25,this.img);
+	this.active=false;
+};
+Canon.prototype.hitbox=function(){
+	return this.hitablebox.hitbox();
+};
+Canon.prototype.shoot=function(ctx){
+	if(active)
+		current_level.projectiles.push(new Projectile(this.x,this.y,projectileFunction));
+}
+Canon.prototype.draw=function(ctx){
+	this.box.draw(ctx);
+
+}
+Canon.prototype.contains = function(x,y){
+	// console.log(this);
+	var bool=this.box.contains(x,y);
+	if(bool)
+		this.active=true;
+	else
+		this.active=false;
+
+	return this.hitablebox.contains(x,y);
+};

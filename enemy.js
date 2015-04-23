@@ -72,9 +72,8 @@ if (right == false || left == false) {
 
 
 
-Enemy.prototype.Contains = function(x, y)
+Enemy.prototype.contains = function(x, y)
 {
-
 	if (x >= this.x && x <= this.x + this.size &&
 		y >= this.y && y <= this.y + this.size){
 		console.log('checked')
