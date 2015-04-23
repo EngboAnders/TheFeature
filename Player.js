@@ -2,11 +2,11 @@
 var print=false;
 var speed=6, slowing_speed = 0.9, speed_up=5, bounceFactor = 0.0001, gravity=9.3;
 
-var player_w = 22, player_h = 66, srcX = 10, srcY = 0;
+var player_w = 34, player_h = 36, srcX = 0, srcY = 0;
 
 var Player = function(position) {
 	this.img = new Image();
-	this.img.src = 'playerSprite.png';
+	this.img.src = 'sprite-player.png';
 	this.x= position.x;
 	this.y= position.y;
 	this.vx=0;
@@ -130,13 +130,13 @@ Player.prototype.setPosition=function(pos){
 
 Player.prototype.render=function(){
 	if (right) {
-	    srcX = 44;
+	    srcY = 36;
 	} else if (left) {
-	    srcX = 22;
+	    srcY = 72;
 	}
 	  ctx.drawImage(this.img,srcX,srcY,player_w,player_h,player.x,player.y,player_w,player_h);
 	if (right == false || left == false) {
-	    srcX = 0;
+	    srcY = 0;
 	}
 	//ctx.drawImage(this.img,this.x, this.y);
 } 
