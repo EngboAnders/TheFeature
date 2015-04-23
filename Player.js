@@ -129,15 +129,15 @@ Player.prototype.setPosition=function(pos){
 }
 
 Player.prototype.render=function(){
-if (right) {
-    srcX = 44;
-} else if (left) {
-    srcX = 22;
-}
-  ctx.drawImage(this.img,srcX,srcY,player_w,player_h,player.x,player.y,player_w,player_h);
-if (right == false || left == false) {
-    srcX = 0;
-}
+	if (right) {
+	    srcX = 44;
+	} else if (left) {
+	    srcX = 22;
+	}
+	  ctx.drawImage(this.img,srcX,srcY,player_w,player_h,player.x,player.y,player_w,player_h);
+	if (right == false || left == false) {
+	    srcX = 0;
+	}
 	//ctx.drawImage(this.img,this.x, this.y);
 } 
 
