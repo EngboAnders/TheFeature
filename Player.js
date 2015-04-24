@@ -173,7 +173,7 @@ Player.prototype.inside=function(shape){
 		return false;
 	}
 	if(topLeft&&topRight){
-		this.y=shape_box.Yhigh;
+		this.y=shape_box.Yhigh+5;
 		if(this.vy<0)
 			this.vy=0;
 		return false;

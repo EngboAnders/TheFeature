@@ -1,6 +1,6 @@
 //core canvas and context stuff goes here
 var canvas, ctx, fps = 90, start_step_in_time = 0, 
-progress = 0, collected_time = 0,
+progress = 0, collected_time = 0, firstrun=true;
 //height and width of the game surface
 W = 900,//*/window.innerWidth-33, 
 H = 650;//*/window.innerHeight-33;
@@ -33,18 +33,20 @@ var load = function(){
 	menu = function(ctx){
 		SplashScreen(ctx);
 	}
-	function shoot(){
-	try{
+	if(firstrun){
+		makelevels();
+		window.addEventListener('click',shoot);
+
+	}
+	
+	
+};
+function shoot(){
+	if(current_level)
 		for(var i=0;current_level.guns.length>i;i++){
 			current_level.guns[i].shoot();
 		}
-	}
-	catch(e){
-		console.log(e);
-	}
 }
-window.addEventListener('click',shoot);
-};
 
 function clearCanvas() {
 	ctx.clearRect(0, 0, W, H);

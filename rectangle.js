@@ -20,9 +20,11 @@ Rectangle.prototype.hitbox=function(){
 	};
 };
 
-Rectangle.prototype.draw = function(ctx){
+Rectangle.prototype.draw = function(ctx, x, y){
+	x = typeof x !== 'undefined' ? x : this.x;
+	y = typeof y !== 'undefined' ? y : this.y;
 	// console.log(this.image);
-	ctx.drawImage(this.image, this.x, this.y);
+	ctx.drawImage(this.image, x, y);
 };
 
 Rectangle.prototype.contains = function(x, y)
@@ -143,11 +145,12 @@ var Projectile = function(x,y,movefunction){
 	this.img=new Image();
 	this.img.src='imgs/shot.png';
 	this.movement=movefunction;
-	this.box=new Rectangle(x+15,y+19,45,38,img)
+	this.box=new Rectangle(x,y,45,38,this.img);//y+19     x+15
 };
 Projectile.prototype.update=function(ctx){
+	this.box.draw(ctx,this.x,this.y);
 	this.movement(this);
-	this.box.draw(ctx);
+	
 }
 //////////////////////////////////////////////////////////////////////////////////////
 ///canon//////////////////////////////////////////////////////////////////////////////
@@ -165,8 +168,14 @@ Canon.prototype.hitbox=function(){
 	return this.hitablebox.hitbox();
 };
 Canon.prototype.shoot=function(ctx){
-	if(active)
-		current_level.projectiles.push(new Projectile(this.x,this.y,projectileFunction));
+	console.log('shoot called');
+	if(localStorage.getItem('choosenItems')){
+		console.log('choosenItems exist');
+		if(JSON.parse(localStorage.getItem('choosenItems')).length==current_level.inputAmount&&this.active){
+			console.log('creating a new projectile');
+			current_level.projectiles.push(new Projectile(this.x,this.y,current_level.projectileFunction));
+		}
+	}
 }
 Canon.prototype.draw=function(ctx){
 	this.box.draw(ctx);
