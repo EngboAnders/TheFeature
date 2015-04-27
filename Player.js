@@ -17,7 +17,6 @@ var Player = function(position) {
 	this.oldX;
 	this.oldY;
 	this.update_move=true;
-
 };
 Player.prototype.hitbox=function(){
 	return {
@@ -110,27 +109,14 @@ Player.prototype.setPosition=function(pos){
 
 Player.prototype.render=function(){
 	if (right) {
-	    srcX = srcX + 34;
-		srcY = 36;
-		if(srcX>68){
-			srcX = 0;
-		}
-	    
+	    srcY = 36;
 	} else if (left) {
-		srcX = srcX + 34;
-		srcY = 72;
-		if(srcX>68){
-			srcX = 0;
-		}
-		
-	} else {
-		srcX = srcX + 34;
-		srcY = 0;
-		if(srcX>102){
-			srcX = 0;
-		}
+	    srcY = 72;
 	}
-	ctx.drawImage(this.img,srcX,srcY,player_w,player_h,player.x,player.y,player_w,player_h);	
+	ctx.drawImage(this.img,srcX,srcY,player_w,player_h,player.x,player.y,player_w,player_h);
+	if (right == false || left == false) {
+	    srcY = 0;
+	}
 } 
 
 Player.prototype.inside=function(shape){
