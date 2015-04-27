@@ -38,6 +38,7 @@ var load = function(){
 		window.addEventListener('click',shoot);
 
 	}
+	setInterval(function(){window.requestAnimationFrame(step);}, 50);
 	
 	
 };
@@ -73,10 +74,9 @@ function step(step_in_time){
   	// if(progress>0)
 	  	update();
 	start_step_in_time = step_in_time;
-  	window.requestAnimationFrame(step);
 };
 
 window.addEventListener('load', load, false);
-window.requestAnimationFrame(step);
+//window.requestAnimationFrame(step);
 
 
