@@ -35,12 +35,38 @@ var load = function(){
 	}
 	if(firstrun){
 		makelevels();
-		window.addEventListener('click',shoot);
+		window.addEventListener('click',clicked);
 
 	}
 	
 	
 };
+function clicked(event){
+	var mouse_x=event.clientX;
+	var mouse_y=event.clienty;
+	if(mouse_y<615&&mouse_y>583)
+		mouse_collems(0);
+	if(mouse_y<650&&mouse_y>620)
+		mouse_collems(5);
+
+	function mouse_collems(row){
+		if(mouse_x<34&&mouse_x>0)			//0v6
+			choose(0+row)
+		else if(mouse_x<65&&mouse_x>36)		//1v7
+			choose(1+row)
+		else if(mouse_x<100&&mouse_x>68)	//2v8
+			choose(2+row)
+		else if(mouse_x<129&&mouse_x>102)	//3v9
+			choose(3+row)
+		else if(mouse_x<164&&mouse_x>131)	//4v10
+			choose(4+row)
+		else if(mouse_x<206&&mouse_x>166)	//5v11
+			choose(5+row)
+	}
+	function choose(item_numb){
+		localStorage.getItem("inventory");
+	}
+}
 function shoot(){
 	if(current_level)
 		for(var i=0;current_level.guns.length>i;i++){

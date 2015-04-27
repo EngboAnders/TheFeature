@@ -3,7 +3,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 var Rectangle = function(x, y,w,h,img)
 {
-	this.image = img;
+	this.image 	= img;
 	this.x		= x;
 	this.y		= y;
 	this.width	= w;
@@ -173,7 +173,7 @@ Canon.prototype.shoot=function(ctx){
 		console.log('choosenItems exist');
 		if(JSON.parse(localStorage.getItem('choosenItems')).length==current_level.inputAmount&&this.active){
 			console.log('creating a new projectile');
-			current_level.projectiles.push(new Projectile(this.x,this.y,current_level.projectileFunction));
+			current_level.projectiles.push(new Projectile(this.x+22,this.y,current_level.projectileFunction));
 		}
 	}
 }

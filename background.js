@@ -56,6 +56,8 @@ var Background =function(ctx){
 			// console.log(particles)
 			particles[i].render();
 		}
+		if(current_level)
+			current_level.lvl_background();
 	}
 	else{
 		//What ever you wanna do in the beginning

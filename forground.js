@@ -7,6 +7,8 @@ var Forground_instance = false;
 var something_iterator=0;
 var Forground =function(ctx){
 	if(Forground_instance){
+		if(current_level)
+			current_level.lvl_forground();
 		//
 		var overlay= new Image();
 		overlay.src='imgs/overlay.png';

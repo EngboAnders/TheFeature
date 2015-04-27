@@ -47,4 +47,6 @@ function doKey(e){
 		left=((e.type=="keydown") ? true : false);
 	if (e.keyCode == 68)//d
 		right=((e.type=="keydown") ? true : false);
+	if (e.keyCode == 32&&e.type=="keyup")// space
+		shoot();
 };

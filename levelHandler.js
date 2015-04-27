@@ -14,7 +14,7 @@ var Level = function(playerStartPosition){
 }
 
 Level.prototype.update = function(ctx){
-	this.lvl_background();
+	// this.lvl_background();
 	try{
 		var i =0;
 		while( i<this.blocks.length){
@@ -68,7 +68,7 @@ Level.prototype.update = function(ctx){
 	catch(e){
 		console.log('making guns failed');
 	}
-	this.lvl_forground();
+	// this.lvl_forground();
 }
 
 Level.prototype.firstDraw= function(){
@@ -79,20 +79,66 @@ function makelevels(){}
 	//test math path part
 	var lvlTest=new Level({'x':10,'y':30});
 	lvlTest.blocks.push(new Rectangle(50,0,70,650,imgs[26]))
-	lvlTest.inputAmount=2;
+	lvlTest.inputAmount=1;
+	// lvlTest.projectileFunction=function(projectile){
+	// 	projectile.a=JSON.parse(localStorage.getItem('choosenItems'))[0];
+	// 	projectile.b=JSON.parse(localStorage.getItem('choosenItems'))[1];
+	// 	projectile.x++;
+	// 	x=Math.floor((projectile.x-projectile.startX)/10)<=0?1:x;
+	// 	function_move=projectile.a+Math.pow(x,2)*projectile.b;
+	// 	projectile.y=projectile.startY+function_move;
+	// 	if(print)
+	// 		console.log(projectile.x+":"+projectile.y);
+	// }
+
+	//
+	// a = 2 
+	// top gun
+	//
+	// lvlTest.inputAmount=1;
+	// lvlTest.projectileFunction=function(projectile){
+	// 	projectile.a=JSON.parse(localStorage.getItem('choosenItems'))[0];
+	// 	// projectile.b=JSON.parse(localStorage.getItem('choosenItems'))[1];
+	// 	projectile.x++;
+	// 	// x=Math.floor((projectile.x-projectile.startX)/10)<=0?1:x;
+	// 	projectile.y=(-21/10000)*Math.pow(projectile.x,2)+projectile.x*projectile.a+25;
+	// 	// projectile.y=;
+	// 	if(print)
+	// 		console.log(projectile.x+":"+projectile.y);
+	// }
+
+	//
+	// a = 7
+	// mid gun
+	//
+	// lvlTest.inputAmount=1;
+	// lvlTest.projectileFunction=function(projectile){
+	// 	projectile.a=JSON.parse(localStorage.getItem('choosenItems'))[0];
+	// 	projectile.b=JSON.parse(localStorage.getItem('choosenItems'))[1];
+	// 	projectile.x++;
+	// 	projectile.y=(projectile.a/6667)*Math.pow(projectile.x,2)-projectile.x+325;
+	// 	if(print)
+	// 		console.log(projectile.x+":"+projectile.y);
+	// }
+
+	// 
+	// a = 4
+	// low gun
+	//
+	lvlTest.inputAmount=1;
 	lvlTest.projectileFunction=function(projectile){
 		projectile.a=JSON.parse(localStorage.getItem('choosenItems'))[0];
-		projectile.b=JSON.parse(localStorage.getItem('choosenItems'))[1];
-		projectile.x++;
-		x=Math.floor((projectile.x-projectile.startX)/10)<=0?1:x;
-		function_move=projectile.a+Math.pow(x,2)*projectile.b;
-		projectile.y=projectile.startY+function_move;
+		// projectile.b=JSON.parse(localStorage.getItem('choosenItems'))[1];
+		projectile.x+=5;
+		// x=Math.floor((projectile.x-projectile.startX)/10)<=0?1:x;
+		projectile.y=(-projectile.a/33)*projectile.x+450;
+		// projectile.y=projectile.startY+function_move;
 		if(print)
 			console.log(projectile.x+":"+projectile.y);
 	}
-	lvlTest.guns.push(new Canon(25,125));
-	lvlTest.guns.push(new Canon(25,275));
-	lvlTest.guns.push(new Canon(25,425));
+	lvlTest.guns.push(new Canon(25,125)); //topgun :D
+	lvlTest.guns.push(new Canon(25,275)); //midgun
+	lvlTest.guns.push(new Canon(25,425)); //lowgun
 	levels.push(lvlTest);
 
 	//lvl 0
