@@ -1,6 +1,6 @@
 //gameground 
 //elements
-var player=null,
+var player=null;
 //movement checks
 up = false, down = false, left = false, right = false;
 var Gameground_instance= false;
@@ -34,8 +34,6 @@ var Gameground =function(ctx){
 		Gameground_instance=true;
 	}
 };
-
-
 
 function doKey(e){
 	// console.log(e);
