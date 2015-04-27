@@ -46,7 +46,18 @@ function shoot(){
 	if(current_level)
 		for(var i=0;current_level.guns.length>i;i++){
 			current_level.guns[i].shoot();
-		}
+		};
+	if(menu_instance){
+		if(position_of_mouse.y>=265&&position_of_mouse.y<290)
+			// console.log('new game')
+			menu_instance=false;
+		if(position_of_mouse.y>=290&&position_of_mouse.y<315)
+			// console.log('save game')
+			ctx.fillRect(0,280,W,30);
+		if(position_of_mouse.y>=315&&position_of_mouse.y<340)
+			// console.log('Credits')
+			ctx.fillRect(0,305,W,30);
+	}
 }
 
 function clearCanvas() {
