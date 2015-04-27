@@ -38,9 +38,9 @@ Player.prototype.update = function(current_level){
 		this.vy += gravity*(progress/100);
 	}
 	
-	if(this.hitbox().Yhigh > H) {
+	if(this.hitbox().Yhigh > H - 120) {
 		onGround++;
-		this.y = H - this.height;
+		this.y = H - 120 - this.height;
 		this.vy *= -bounceFactor;
 	}
 	if(this.hitbox().Xhigh > W-5) {

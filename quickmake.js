@@ -14,7 +14,7 @@ var user;
 // background is for all fancy stuff you see in the distance
 // gameground is where the player and all the obsticals are
 // forground is where all the fancy stuff that is blockking your view are
-var background, forground, gameground, menu;
+var background, forground, gameground, menu, failureState;
 
 var load = function(){
 	canvas = document.getElementById('gameCanvas'); //get Canvas
@@ -33,12 +33,16 @@ var load = function(){
 	menu = function(ctx){
 		SplashScreen(ctx);
 	}
+
+	failureState = function(ctx){
+		FailureState(ctx);
+	}
+
 	if(firstrun){
 		makelevels();
 		window.addEventListener('click',shoot);
 
 	}
-	
 	
 };
 function shoot(){
@@ -54,14 +58,16 @@ function clearCanvas() {
 
 function update(){
 	if(canvas!=null){
+		// console.log(menu_instance);
+		// console.log(failureStateBool);
 		clearCanvas();
 		menu(ctx);
-		if (menu_instance == true) {
-		 	clearCanvas();
+
+		if (menu_instance == true&&!failureStateBool) {
 		 	background(ctx);
 		 	gameground(ctx);
 		 	forground(ctx);
-		};
+		}
 	}
 };
 

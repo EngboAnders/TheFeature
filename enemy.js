@@ -1,4 +1,6 @@
 //enermy
+var failureStateBool = false;
+
 var enemy_pics=[
 	(new Image()).src='imgs/avg.png',
 	(new Image()).src='imgs/Nortonicon.png',
@@ -33,6 +35,7 @@ Enemy.prototype.hitbox=function(){
 }
 Enemy.prototype.update = function(ctx,current_level){
 	this.render(ctx);
+
 	if(this.x<=this.position_from.x&&this.y<=this.position_from.y){
 		going_forth=true;
 	}
@@ -76,8 +79,10 @@ Enemy.prototype.contains = function(x, y)
 {
 	if (x >= this.x && x <= this.x + this.size &&
 		y >= this.y && y <= this.y + this.size){
-		console.log('checked')
-		player=null;
+		//console.log('checked')
+		player = null;
+		player= new Player(current_level.playerStartPosition);
+		failureStateBool = true;
 		return true;
 	}
 	else 
