@@ -1,5 +1,6 @@
 //menu
-var menu_instance = false;
+var menu_instance = true;
+var position_of_mouse={'x':0,'y':0};
 
 var SplashScreen = function(ctx){
 	draw(ctx);
@@ -14,13 +15,20 @@ function draw(ctx){
 	ctx.font = '30px Verdana, sans-serif';
 	ctx.textBaseline = 'top';
 	ctx.textAlign = 'center';
-	ctx.fillText('Hello world', 450, 250);
+	menu_new_game(ctx);
+	ctx.fillText('New Game' , 450, 250);
+	ctx.fillText('Save Game', 450, 275);
+	ctx.fillText('Save Game', 450, 275);
+	// ctx.fillStyle = color;
+	// ctx.font = '24px Verdana, sans-serif';
+	// ctx.fillText('click to begin', 450, 250+ 30);
 
-	ctx.fillStyle = color;
-	ctx.font = '24px Verdana, sans-serif';
-	ctx.fillText('click to begin', 450, 250+ 30);
-
-	window.addEventListener('click', function(){
-			menu_instance = true;
-	}, false)
+	
+};
+window.addEventListener('mousemove', function(e){
+    position_of_mouse.x = e.pageX;
+    position_of_mouse.y = e.pageY;
+}, false);
+function menu_new_game(ctx){
+	if()
 }

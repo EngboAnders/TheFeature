@@ -43,6 +43,10 @@ var Forground =function(ctx){
 				inv_y=622;
 			}
 		}
+		// if(!player){
+		// 	if(current_level==menuLvl)
+		// 		drawMenu();
+		// }
 		//move to game background or for ground
 		// pil = new Image();
 		// pil.src='imgs/pil6.png';
@@ -64,5 +68,9 @@ var Forground =function(ctx){
 
 		Forground_instance=true;
 	}
+	
+};
+
+function drawMenu(){
 	
 };

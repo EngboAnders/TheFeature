@@ -55,13 +55,15 @@ function clearCanvas() {
 function update(){
 	if(canvas!=null){
 		clearCanvas();
-		menu(ctx);
-		if (menu_instance == true) {
-		 	clearCanvas();
+		
+		if (menu_instance == false) {
 		 	background(ctx);
 		 	gameground(ctx);
 		 	forground(ctx);
-		};
+		}
+		else{
+			menu(ctx);
+		}
 	}
 };
 
