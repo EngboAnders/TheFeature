@@ -18,14 +18,7 @@ var SplashScreen = function(ctx){
 	ctx.fillStyle = 'White';
 	ctx.font = '30px Verdana, sans-serif';
 	ctx.textBaseline = 'top';
-<<<<<<< HEAD
-	ctx.textAlign = 'center';
-	ctx.fillText('R U RDY TO RUUUMBLE?!', 450, 250);
 
-	ctx.fillStyle = color;
-	ctx.font = '24px Verdana, sans-serif';
-	ctx.fillText('click to begin', 450, 250+ 30);
-=======
 	ctx.textAlign = 'left';
 	ctx.fillText('New Game' , 350, 250);
 	ctx.fillText('Save Game', 350, 275);
@@ -33,7 +26,6 @@ var SplashScreen = function(ctx){
 	// ctx.fillStyle = color;
 	// ctx.font = '24px Verdana, sans-serif';
 	// ctx.fillText('click to begin', 450, 250+ 30);
->>>>>>> da9a80c57423abc2f3b98439a54e3e0c92424ca2
 
 	
 };

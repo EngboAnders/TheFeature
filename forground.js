@@ -43,7 +43,6 @@ var Forground =function(ctx){
 				inv_y=622;
 			}
 		}
-<<<<<<< HEAD
 		if (failureStateBool) {
 			//console.log('dddd');
 			var color = 'rgb(' + 1 + ',0,0)';
@@ -61,12 +60,7 @@ var Forground =function(ctx){
 				failureStateBool = false;
 			}, false)
 		}
-=======
-		// if(!player){
-		// 	if(current_level==menuLvl)
-		// 		drawMenu();
-		// }
->>>>>>> da9a80c57423abc2f3b98439a54e3e0c92424ca2
+
 		//move to game background or for ground
 		// pil = new Image();
 		// pil.src='imgs/pil6.png';
