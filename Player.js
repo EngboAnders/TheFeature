@@ -17,6 +17,7 @@ var Player = function(position) {
 	this.oldX;
 	this.oldY;
 	this.update_move=true;
+
 };
 Player.prototype.hitbox=function(){
 	return {
@@ -38,9 +39,9 @@ Player.prototype.update = function(current_level){
 		this.vy += gravity*(progress/100);
 	}
 	
-	if(this.hitbox().Yhigh > H) {
+	if(this.hitbox().Yhigh > H - 120) {
 		onGround++;
-		this.y = H - this.height;
+		this.y = H - 120 - this.height;
 		this.vy *= -bounceFactor;
 	}
 	if(this.hitbox().Xhigh > W-5) {
@@ -109,14 +110,27 @@ Player.prototype.setPosition=function(pos){
 
 Player.prototype.render=function(){
 	if (right) {
-	    srcY = 36;
+	    srcX = srcX + 34;
+		srcY = 36;
+		if(srcX>68){
+			srcX = 0;
+		}
+	    
 	} else if (left) {
-	    srcY = 72;
+		srcX = srcX + 34;
+		srcY = 72;
+		if(srcX>68){
+			srcX = 0;
+		}
+		
+	} else {
+		srcX = srcX + 34;
+		srcY = 0;
+		if(srcX>102){
+			srcX = 0;
+		}
 	}
-	ctx.drawImage(this.img,srcX,srcY,player_w,player_h,player.x,player.y,player_w,player_h);
-	if (right == false || left == false) {
-	    srcY = 0;
-	}
+	ctx.drawImage(this.img,srcX,srcY,player_w,player_h,player.x,player.y,player_w,player_h);	
 } 
 
 Player.prototype.inside=function(shape){

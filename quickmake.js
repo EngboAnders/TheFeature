@@ -14,7 +14,7 @@ var user;
 // background is for all fancy stuff you see in the distance
 // gameground is where the player and all the obsticals are
 // forground is where all the fancy stuff that is blockking your view are
-var background, forground, gameground, menu;
+var background, forground, gameground, menu, failureState;
 
 var load = function(){
 	canvas = document.getElementById('gameCanvas'); //get Canvas
@@ -33,12 +33,17 @@ var load = function(){
 	menu = function(ctx){
 		SplashScreen(ctx);
 	}
+
+	failureState = function(ctx){
+		FailureState(ctx);
+	}
+
 	if(firstrun){
 		makelevels();
 		window.addEventListener('click',clicked);
 
 	}
-	
+	setInterval(function(){window.requestAnimationFrame(step);}, 50);
 	
 };
 function clicked(event){
@@ -71,7 +76,18 @@ function shoot(){
 	if(current_level)
 		for(var i=0;current_level.guns.length>i;i++){
 			current_level.guns[i].shoot();
-		}
+		};
+	if(menu_instance){
+		if(position_of_mouse.y>=265&&position_of_mouse.y<290)
+			// console.log('new game')
+			menu_instance=false;
+		if(position_of_mouse.y>=290&&position_of_mouse.y<315)
+			// console.log('save game')
+			ctx.fillRect(0,280,W,30);
+		if(position_of_mouse.y>=315&&position_of_mouse.y<340)
+			// console.log('Credits')
+			ctx.fillRect(0,305,W,30);
+	}
 }
 
 function clearCanvas() {
@@ -80,14 +96,19 @@ function clearCanvas() {
 
 function update(){
 	if(canvas!=null){
+		// console.log(menu_instance);
+		// console.log(failureStateBool);
 		clearCanvas();
-		menu(ctx);
-		if (menu_instance == true) {
-		 	clearCanvas();
+
+		if (menu_instance == false&&!failureStateBool) {
+
 		 	background(ctx);
 		 	gameground(ctx);
 		 	forground(ctx);
-		};
+		}
+		else{
+			menu(ctx);
+		}
 	}
 };
 
@@ -97,10 +118,9 @@ function step(step_in_time){
   	// if(progress>0)
 	  	update();
 	start_step_in_time = step_in_time;
-  	window.requestAnimationFrame(step);
 };
 
 window.addEventListener('load', load, false);
-window.requestAnimationFrame(step);
+//window.requestAnimationFrame(step);
 
 

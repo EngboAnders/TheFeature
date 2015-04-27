@@ -45,15 +45,28 @@ var Forground =function(ctx){
 				inv_y=622;
 			}
 		}
+		if (failureStateBool) {
+			//console.log('dddd');
+			var color = 'rgb(' + 1 + ',0,0)';
+			ctx.fillStyle = 'White';
+			ctx.font = '30px Verdana, sans-serif';
+			ctx.textBaseline = 'top';
+			ctx.textAlign = 'center';
+			ctx.fillText('You have died.', 450, 250);
+
+			ctx.fillStyle = color;
+			ctx.font = '24px Verdana, sans-serif';
+			ctx.fillText('click to begin again', 450, 250+ 30);
+			window.addEventListener('click', function(){
+				console.log("ddd");
+				failureStateBool = false;
+			}, false)
+		}
+
 		//move to game background or for ground
 		// pil = new Image();
 		// pil.src='imgs/pil6.png';
 		// ctx.drawImage(pil, 327, 510);
-
-	
-			
-	
-
 	}
 	else{
 		woosh_img = new Image();
@@ -66,5 +79,9 @@ var Forground =function(ctx){
 
 		Forground_instance=true;
 	}
+	
+};
+
+function drawMenu(){
 	
 };

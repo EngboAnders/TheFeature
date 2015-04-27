@@ -136,10 +136,12 @@ function makelevels(){}
 		if(print)
 			console.log(projectile.x+":"+projectile.y);
 	}
+
 	lvlTest.guns.push(new Canon(25,125)); //topgun :D
 	lvlTest.guns.push(new Canon(25,275)); //midgun
 	lvlTest.guns.push(new Canon(25,425)); //lowgun
 	levels.push(lvlTest);
+
 
 	//lvl 0
 	var lvl0=new Level({'x':10,'y':10});
