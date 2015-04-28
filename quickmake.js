@@ -98,10 +98,13 @@ function update(){
 		// console.log(failureStateBool);
 		ctx.clearRect(0, 0, W, H);
 
-		if (menu_instance == false&&!failureStateBool) {
+		if (menu_instance == false&&failureStateBool == false) {
 
 		 	//background(ctx);
 		 	gameground(ctx);
+		 	forground(ctx);
+		}
+		else if (failureStateBool) {
 		 	forground(ctx);
 		}
 		else{
@@ -112,7 +115,8 @@ function update(){
 
 function step(step_in_time){
   	progress = step_in_time - start_step_in_time;
-  	collected_time += progress;
+  	if(!menu_instance)
+  		collected_time += progress;
   	// if(progress>0)
 	  	update();
 	start_step_in_time = step_in_time;
