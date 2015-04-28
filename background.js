@@ -44,21 +44,19 @@ var Background =function(ctx){
 		if(current_level)
 			current_level.lvl_background();
 		// ctx.drawImage(layer_img,0,0,W,H,0,0,W,H);
-		if(particles.length<=max_particles&&bool){
-			particles.push(new Particle);
-			bool=false;
-		}
-		else{
-			bool=true;
-		}
-		for (var i = 0; i < particles.length; i++) {
-			// console.log('//////////')
-			// console.log(particles[i])
-			// console.log(particles)
-			particles[i].render();
-		}
-		if(current_level)
-			current_level.lvl_background();
+		// if(particles.length<=max_particles&&bool){
+		// 	particles.push(new Particle);
+		// 	bool=false;
+		// }
+		// else{
+		// 	bool=true;
+		// }
+		// for (var i = 0; i < particles.length; i++) {
+		// 	// console.log('//////////')
+		// 	// console.log(particles[i])
+		// 	// console.log(particles)
+		// 	particles[i].render();
+		// }
 	}
 	else{
 		//What ever you wanna do in the beginning

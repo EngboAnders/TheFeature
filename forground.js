@@ -28,7 +28,8 @@ var Forground =function(ctx){
 				failureStateBool = false;
 				collected_time = 0;
 			}, false)
-		}else{
+		}
+		else{
 			var overlay= new Image();
 			overlay.src='imgs/overlay.png';
 			ctx.drawImage(overlay, 0,0);
@@ -64,6 +65,8 @@ var Forground =function(ctx){
 					inv_y=622;
 				}
 			}
+			ctx.fillText(current_level.getFormel(), 334, 597);
+			
 		}
 
 		//move to game background or for ground

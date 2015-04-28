@@ -65,6 +65,7 @@ NewLvlRectangle.prototype.nextLevel= function(){
 	if (true) {
 		
 	}
+	localStorage.setItem('choosenItems',JSON.stringify([]));
 	current_level=levels[this.level_going_to];
 	player.setPosition(this.player_new_position);
 };
