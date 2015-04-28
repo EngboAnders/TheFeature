@@ -140,7 +140,7 @@ function makelevels(){}
 	lvlTest.guns.push(new Canon(25,125)); //topgun :D
 	lvlTest.guns.push(new Canon(25,275)); //midgun
 	lvlTest.guns.push(new Canon(25,425)); //lowgun
-	levels.push(lvlTest);
+	// levels.push(lvlTest);
 
 
 	//lvl 0

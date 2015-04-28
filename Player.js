@@ -1,8 +1,8 @@
 //player physics
 var print=false;
-var speed=6, slowing_speed = 0.9, speed_up=5, bounceFactor = 0.0001, gravity=9.3;
+var last_time, speed=12, slowing_speed = 0.9, speed_up=5, bounceFactor = 0.01, gravity=9.3;
 
-var player_w = 34, player_h = 36, srcX = 0, srcY = 0;
+var player_w = 34, player_h = 36, srcX = 0, srcY = 0, animate_right=true;
 
 var Player = function(position) {
 	this.img = new Image();
@@ -11,8 +11,8 @@ var Player = function(position) {
 	this.y= position.y;
 	this.vx=0;
 	this.vy=0;
-	this.width= 15;
-	this.height= 22;
+	this.width= 20;
+	this.height= 35;
 	this.grounded = false;
 	this.oldX;
 	this.oldY;
@@ -21,7 +21,7 @@ var Player = function(position) {
 };
 Player.prototype.hitbox=function(){
 	return {
-		'Xlow':this.x+5, 
+		'Xlow':this.x+6, 
 		'Ylow':this.y, 
 		'Xhigh':this.x+this.width, 
 		'Yhigh':this.y+this.height
@@ -35,39 +35,41 @@ Player.prototype.update = function(current_level){
 	this.oldY=this.y;
 	this.oldX=this.x;
 	
-	if(!this.grounded){
+	if(!this.grounded&&!up){
 		this.vy += gravity*(progress/100);
 	}
 	
-	if(this.hitbox().Yhigh > H - 120) {
+	if(this.hitbox().Yhigh >= H - 93) {
 		onGround++;
-		this.y = H - 120 - this.height;
+		this.y = H - 93 - this.height;
 		this.vy *= -bounceFactor;
 	}
-	if(this.hitbox().Xhigh > W-5) {
+	if(this.hitbox().Xhigh >= W-5) {
 		this.x = W - this.width-5;
 		this.vx *= -bounceFactor;
 	}
-	if(this.hitbox().Ylow < 0) {
-		if(this.y=0)
+	if(this.hitbox().Ylow <= 0) {
+		if(!up)
+			this.update_move=false;
+		if(this.y==0)
 			this.y=5;
 		else
 			this.y = 0;
 		this.vy *= -bounceFactor;
 	}
-	if(this.hitbox().Xlow < 0) {
-		this.x = 0-5;
+	if(this.hitbox().Xlow <= 0) {
+		this.x = -5;
 		this.vx *= -bounceFactor;
 	}
 
 	if (up)//w
-		this.vy-=speed_up;
+		this.vy-=speed_up*(progress/100);
 	if (down)//s
-		this.vy+=speed_up;
+		this.vy+=speed_up*(progress/100);
 	if (left)//a
-		this.vx-=speed;
+		this.vx-=speed*(progress/100);
 	if (right)//d
-		this.vx+=speed;
+		this.vx+=speed*(progress/100);
  
 	// stuff
 	var i = 0;
@@ -85,8 +87,9 @@ Player.prototype.update = function(current_level){
 	for(var gun in current_level.guns)
 		this.inside(current_level.guns[gun]);
 
-	this.vy *= slowing_speed;
-	this.vx *= slowing_speed;
+	// this.vy *= slowing_speed;
+	if(!left&&!right)
+		this.vx *= slowing_speed;
 
 	if(print){
 		console.log(this.update_move);
@@ -109,28 +112,33 @@ Player.prototype.setPosition=function(pos){
 }
 
 Player.prototype.render=function(){
-	if (right) {
-	    srcX = srcX + 34;
-		srcY = 36;
-		if(srcX>68){
-			srcX = 0;
-		}
-	    
-	} else if (left) {
-		srcX = srcX + 34;
-		srcY = 72;
-		if(srcX>68){
-			srcX = 0;
-		}
+	// if(Math.floor(collected_time/1000)!=last_time){
 		
-	} else {
-		srcX = srcX + 34;
-		srcY = 0;
-		if(srcX>102){
-			srcX = 0;
+		if (right) {
+		    srcX = ((animate_right)?srcX + 34:srcX - 34);
+			srcY = 36;
+			if(srcX>68-34)
+				animate_right=false;
+			if(srcX<34)
+				animate_right=true;
+		} else if (left) {
+		    srcX = ((animate_right)?srcX + 34:srcX - 34);
+			srcY = 72;
+			if(srcX>68-34)
+				animate_right=false;
+			if(srcX<34)
+				animate_right=true;
+		} else {
+		    srcX = ((animate_right)?srcX + 34:srcX - 34);
+			srcY = 0;
+			if(srcX>102-34)
+				animate_right=false;
+			if(srcX<34)
+				animate_right=true;
 		}
-	}
+	// }
 	ctx.drawImage(this.img,srcX,srcY,player_w,player_h,player.x,player.y,player_w,player_h);	
+	
 } 
 
 Player.prototype.inside=function(shape){
@@ -170,6 +178,7 @@ Player.prototype.inside=function(shape){
 
 	if(bottomLeft&&bottomRight){
 		this.y=shape_box.Ylow-this.height;
+		// this.vy *= -bounceFactor;
 		if(this.vy>0)
 			this.vy=0;
 		return true;
@@ -239,8 +248,7 @@ Player.prototype.inside=function(shape){
 	return false;
 };
 	
-Player.prototype.contains = function(x, y)
-{
+Player.prototype.contains = function(x, y){
 	if (x >= this.x && x <= this.x + this.width &&
 		y >= this.y && y <= this.y + this.height)
 		return true;

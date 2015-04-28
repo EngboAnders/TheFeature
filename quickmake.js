@@ -25,25 +25,25 @@ var load = function(){
 	};
 	gameground = function(ctx){
 		Gameground(ctx);
-	}
+	};
 	forground = function(ctx){
 		Forground(ctx);
-	}
+	};
 
 	menu = function(ctx){
 		SplashScreen(ctx);
-	}
+	};
 
 	failureState = function(ctx){
 		FailureState(ctx);
-	}
+	};
 
 	if(firstrun){
 		makelevels();
 		window.addEventListener('click',clicked);
 
-	}
-	setInterval(function(){window.requestAnimationFrame(step);}, 50);
+	};
+	setInterval(function(){window.requestAnimationFrame(step);}, 1000/60);
 	
 };
 function clicked(event){
@@ -53,6 +53,18 @@ function clicked(event){
 		mouse_collems(0);
 	if(mouse_y<650&&mouse_y>620)
 		mouse_collems(5);
+
+	if(menu_instance){
+		if(position_of_mouse.y>=265&&position_of_mouse.y<290)
+			// console.log('new game')
+			menu_instance=false;
+		if(position_of_mouse.y>=290&&position_of_mouse.y<315)
+			// console.log('save game')
+			ctx.fillRect(0,280,W,30);
+		if(position_of_mouse.y>=315&&position_of_mouse.y<340)
+			// console.log('Credits')
+			ctx.fillRect(0,305,W,30);
+	};
 
 	function mouse_collems(row){
 		if(mouse_x<34&&mouse_x>0)			//0v6
@@ -67,28 +79,17 @@ function clicked(event){
 			choose(4+row)
 		else if(mouse_x<206&&mouse_x>166)	//5v11
 			choose(5+row)
-	}
+	};
 	function choose(item_numb){
 		localStorage.getItem("inventory");
-	}
-}
+	};
+};
 function shoot(){
 	if(current_level)
 		for(var i=0;current_level.guns.length>i;i++){
 			current_level.guns[i].shoot();
 		};
-	if(menu_instance){
-		if(position_of_mouse.y>=265&&position_of_mouse.y<290)
-			// console.log('new game')
-			menu_instance=false;
-		if(position_of_mouse.y>=290&&position_of_mouse.y<315)
-			// console.log('save game')
-			ctx.fillRect(0,280,W,30);
-		if(position_of_mouse.y>=315&&position_of_mouse.y<340)
-			// console.log('Credits')
-			ctx.fillRect(0,305,W,30);
-	}
-}
+};
 
 function clearCanvas() {
 	ctx.clearRect(0, 0, W, H);
@@ -108,8 +109,8 @@ function update(){
 		}
 		else{
 			menu(ctx);
-		}
-	}
+		};
+	};
 };
 
 function step(step_in_time){

@@ -1,5 +1,5 @@
 var particles = [];
-var max_particles= 250;
+var max_particles= 150;
 var bool=true;
 var size = 6;
 var Background_instance=false;
