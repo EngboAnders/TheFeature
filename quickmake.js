@@ -43,7 +43,7 @@ var load = function(){
 		window.addEventListener('click',clicked);
 
 	};
-	setInterval(function(){window.requestAnimationFrame(step);}, 1000/60);
+	setInterval(function(){window.requestAnimationFrame(step);}, 1000/30);
 	
 };
 function clicked(event){
@@ -91,19 +91,16 @@ function shoot(){
 		};
 };
 
-function clearCanvas() {
-	ctx.clearRect(0, 0, W, H);
-};
 
 function update(){
 	if(canvas!=null){
 		// console.log(menu_instance);
 		// console.log(failureStateBool);
-		clearCanvas();
+		ctx.clearRect(0, 0, W, H);
 
 		if (menu_instance == false&&!failureStateBool) {
 
-		 	background(ctx);
+		 	//background(ctx);
 		 	gameground(ctx);
 		 	forground(ctx);
 		}
