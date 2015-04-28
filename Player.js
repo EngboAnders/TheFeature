@@ -4,6 +4,8 @@ var last_time, speed=12, slowing_speed = 0.9, speed_up=5, bounceFactor = 0.01, g
 
 var player_w = 34, player_h = 36, srcX = 0, srcY = 0, animate_right=true;
 
+var jumpSnd = new Audio("sound/jump.wav");
+var walkSnd = new Audio("sound/walk.wav");
 var Player = function(position) {
 	this.img = new Image();
 	this.img.src = 'sprite-player.png';
@@ -63,15 +65,31 @@ Player.prototype.update = function(current_level){
 	}
 
 	if (up)//w
+	{
 		this.vy-=speed_up*(progress/100);
+		if(this.grounded){
+		jumpSnd.play(); 	
+		}
+	}
 	if (down)//s
 		this.vy+=speed_up*(progress/100);
-	if (left)//a  
+	if (left)//a
+	{
 		this.vx=(this.vx-speed*(progress/100)<max_velocity
 			&&this.vx-speed*(progress/100)>-max_velocity)?
 			this.vx-speed*(progress/100):-max_velocity;
+		if(srcX == 0 || srcX == 68 || this.grounded){
+			walkSnd.play();
+		}
+	}
 	if (right)//d
-		this.vx=(this.vx-speed*(progress/100)<max_velocity&&this.vx-speed*(progress/100)>-max_velocity)?this.vx+speed*(progress/100):max_velocity;;
+	{
+		this.vx=(this.vx-speed*(progress/100)<max_velocity&&this.vx-speed*(progress/100)>-max_velocity)?this.vx+speed*(progress/100):max_velocity;
+		if(srcX == 0 || srcX == 68 || this.grounded){
+			walkSnd.play();
+		}
+	}
+
  
 	// stuff
 	var i = 0;

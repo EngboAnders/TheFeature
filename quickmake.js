@@ -7,7 +7,7 @@ H = 650;//*/window.innerHeight-33;
 var position_of_mouse={'x':0,'y':0};
 
 //User
-
+var backgroundMusic = new Audio("sound/Music.mp3");
 var user;
 
 // Layers
@@ -20,6 +20,9 @@ var load = function(){
 	canvas = document.getElementById('gameCanvas'); //get Canvas
 	canvas.height = H; canvas.width = W;  			//set dimentions
 	ctx = canvas.getContext('2d');					//get Context
+	backgroundMusic.loop = true;
+	backgroundMusic.play();
+	
 	background =  function(ctx){
 		Background(ctx);
 	};
@@ -34,11 +37,13 @@ var load = function(){
 		SplashScreen(ctx);
 	};
 
+
 	failureState = function(ctx){
 		FailureState(ctx);
 	};
 
 	if(firstrun){
+
 		makelevels();
 		window.addEventListener('click',clicked);
 		canvas.addEventListener('mousemove', function(e){
@@ -49,7 +54,7 @@ var load = function(){
 		}, false);
 
 	};
-	setInterval(function(){window.requestAnimationFrame(step);}, 1000/60);
+	setInterval(function(){window.requestAnimationFrame(step);}, 1000/30);
 	
 };
 
@@ -117,20 +122,20 @@ function shoot(){
 		};
 };
 
-function clearCanvas() {
-	ctx.clearRect(0, 0, W, H);
-};
 
 function update(){
 	if(canvas!=null){
 		// console.log(menu_instance);
 		// console.log(failureStateBool);
-		clearCanvas();
+		ctx.clearRect(0, 0, W, H);
 
-		if (menu_instance == false&&!failureStateBool) {
+		if (menu_instance == false&&failureStateBool == false) {
 
-		 	background(ctx);
+		 	//background(ctx);
 		 	gameground(ctx);
+		 	forground(ctx);
+		}
+		else if (failureStateBool) {
 		 	forground(ctx);
 		}
 		else{
@@ -141,7 +146,8 @@ function update(){
 
 function step(step_in_time){
   	progress = step_in_time - start_step_in_time;
-  	collected_time += progress;
+  	if(!menu_instance)
+  		collected_time += progress;
   	// if(progress>0)
 	  	update();
 	start_step_in_time = step_in_time;
