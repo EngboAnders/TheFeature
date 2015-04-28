@@ -57,9 +57,14 @@ NewLvlRectangle.prototype.draw = function(ctx){
 NewLvlRectangle.prototype.contains = function(x,y){
 	var bool=this.box.contains(x,y);
 	if(bool)
+	{
 		this.nextLevel();
+	}
 };
 NewLvlRectangle.prototype.nextLevel= function(){
+	if (true) {
+		
+	}
 	current_level=levels[this.level_going_to];
 	player.setPosition(this.player_new_position);
 };
