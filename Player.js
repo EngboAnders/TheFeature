@@ -76,14 +76,14 @@ Player.prototype.update = function(current_level){
 	if (left)//a
 	{
 		this.vx-=speed*(progress/100);
-		if(srcX == 0 || srcX == 68 || this.grounded){
+		if((srcX == 0 || srcX == 68) && this.grounded){
 			walkSnd.play();
 		}
 	}
 	if (right)//d
 	{
 		this.vx+=speed*(progress/100);
-		if(srcX == 0 || srcX == 68 || this.grounded){
+		if((srcX == 0 || srcX == 68) && this.grounded){
 			walkSnd.play();
 		}
 	}

@@ -92,10 +92,13 @@ function clicked(event){
 	};
 };
 function shoot(){
+	var laserShot = new Audio("sound/laserfire.wav");
+	laserShot.play();
 	if(current_level)
 		for(var i=0;current_level.guns.length>i;i++){
 			current_level.guns[i].shoot();
 		};
+
 };
 
 
@@ -117,7 +120,7 @@ function update(){
 		else{
 			menu(ctx);
 		};
-	};
+	};//
 };
 
 function step(step_in_time){
