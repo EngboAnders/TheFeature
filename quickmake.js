@@ -134,7 +134,7 @@ function update(){
 
 		if (menu_instance == false&&failureStateBool == false) {
 
-		 	//background(ctx);
+		 	background(ctx);
 		 	gameground(ctx);
 		 	forground(ctx);
 		}
