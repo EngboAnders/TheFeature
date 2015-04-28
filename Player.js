@@ -75,17 +75,21 @@ Player.prototype.update = function(current_level){
 		this.vy+=speed_up*(progress/100);
 	if (left)//a
 	{
+
 		this.vx=(this.vx-speed*(progress/100)<max_velocity
 			&&this.vx-speed*(progress/100)>-max_velocity)?
 			this.vx-speed*(progress/100):-max_velocity;
-		if(srcX == 0 || srcX == 68 || this.grounded){
+		if((srcX == 0 || srcX == 68) && this.grounded){
+
 			walkSnd.play();
 		}
 	}
 	if (right)//d
 	{
+
 		this.vx=(this.vx-speed*(progress/100)<max_velocity&&this.vx-speed*(progress/100)>-max_velocity)?this.vx+speed*(progress/100):max_velocity;
-		if(srcX == 0 || srcX == 68 || this.grounded){
+		if((srcX == 0 || srcX == 68) && this.grounded){
+
 			walkSnd.play();
 		}
 	}
