@@ -7,7 +7,7 @@ H = 650;//*/window.innerHeight-33;
 // player stuff goes here! Such as speed, bouncability and such
 
 //User
-var backgroundMusic = new Audio("sound/Music.wav");
+var backgroundMusic = new Audio("sound/Music.mp3");
 var user;
 
 // Layers
