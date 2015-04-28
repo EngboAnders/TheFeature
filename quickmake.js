@@ -7,7 +7,7 @@ H = 650;//*/window.innerHeight-33;
 // player stuff goes here! Such as speed, bouncability and such
 
 //User
-
+var backgroundMusic = new Audio("sound/Music.wav");
 var user;
 
 // Layers
@@ -20,6 +20,9 @@ var load = function(){
 	canvas = document.getElementById('gameCanvas'); //get Canvas
 	canvas.height = H; canvas.width = W;  			//set dimentions
 	ctx = canvas.getContext('2d');					//get Context
+	backgroundMusic.loop = true;
+	backgroundMusic.play();
+	
 	background =  function(ctx){
 		Background(ctx);
 	};
@@ -34,11 +37,13 @@ var load = function(){
 		SplashScreen(ctx);
 	};
 
+
 	failureState = function(ctx){
 		FailureState(ctx);
 	};
 
 	if(firstrun){
+
 		makelevels();
 		window.addEventListener('click',clicked);
 
@@ -46,6 +51,8 @@ var load = function(){
 	setInterval(function(){window.requestAnimationFrame(step);}, 1000/30);
 	
 };
+
+
 function clicked(event){
 	var mouse_x=event.clientX;
 	var mouse_y=event.clienty;
