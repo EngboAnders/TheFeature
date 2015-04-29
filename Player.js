@@ -1,6 +1,6 @@
 //player physics
 var print=false;
-var last_time, speed=12, slowing_speed = 0.9, speed_up=5, bounceFactor = 0.01, gravity=9.3, max_velocity=100;
+var last_time, speed=12, slowing_speed = 0.9, speed_up=5, bounceFactor = 0.01, gravity=9.3;
 
 var player_w = 34, player_h = 36, animate_right=true;
 
@@ -44,9 +44,9 @@ Player.prototype.update = function(current_level){
 	}
 	
 	if(this.hitbox().Yhigh >= H - 93) {
-		this.grounded=true;
+		onGround++;
 		this.y = H - 93 - this.height;
-		this.vy *= 0;
+		this.vy *= -bounceFactor;
 	}
 	if(this.hitbox().Xhigh >= W-5) {
 		this.x = W - this.width-5;
@@ -83,21 +83,23 @@ Player.prototype.update = function(current_level){
 				this.vx-speed*(progress/100):-max_velocity;
 		if((this.srcX == 0 || this.srcX == 68) && this.grounded){
 
+
 			walkSnd.play();
 		}
 	}
 	if (right)//d
 	{
 
+
 		this.vx=(this.vx-speed*(progress/100)<max_velocity
 			&&this.vx-speed*(progress/100)>-max_velocity)?
 				this.vx+speed*(progress/100):max_velocity;
 		if((this.srcX == 0 || this.srcX == 68) && this.grounded){
 
+
 			walkSnd.play();
 		}
 	}
-
  
 	// stuff
 	var i = 0;

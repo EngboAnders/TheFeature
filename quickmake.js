@@ -4,7 +4,7 @@ progress = 0, collected_time = 0, firstrun=true;
 //height and width of the game surface
 W = 900,//*/window.innerWidth-33, 
 H = 650;//*/window.innerHeight-33;
-var position_of_mouse={'x':0,'y':0};
+// player stuff goes here! Such as speed, bouncability and such
 
 //User
 var backgroundMusic = new Audio("sound/Music.mp3");
@@ -46,12 +46,6 @@ var load = function(){
 
 		makelevels();
 		window.addEventListener('click',clicked);
-		canvas.addEventListener('mousemove', function(e){
-			var rect = canvas.getBoundingClientRect();
-		    position_of_mouse.x = e.clientX- rect.left;
-		    position_of_mouse.y = e.clientY- rect.top;
-		    // console.log(position_of_mouse);
-		}, false);
 
 	};
 	
@@ -60,13 +54,22 @@ var load = function(){
 	
 };
 
-function clicked(){
+
+function clicked(event){
+	var mouse_x=event.clientX;
+	var mouse_y=event.clienty;
+	if(mouse_y<615&&mouse_y>583)
+		mouse_collems(0);
+	if(mouse_y<650&&mouse_y>620)
+		mouse_collems(5);
+
 	if(menu_instance){
-		if(position_of_mouse.y>=255&&position_of_mouse.y<280)
+		if(position_of_mouse.y>=265&&position_of_mouse.y<290)
 			// console.log('new game')
 			menu_instance=false;
-		else if(position_of_mouse.y>=280&&position_of_mouse.y<305)
+		if(position_of_mouse.y>=290&&position_of_mouse.y<315)
 			// console.log('save game')
+
 			save_game();
 		else if(position_of_mouse.y>=305&&position_of_mouse.y<330)
 			// console.log('load game')
@@ -87,44 +90,32 @@ function clicked(){
 	function load_game(){
 		if(localStorage.getItem("savefile"))
 			current_level=levels[JSON.parse(localStorage.getItem("savefile")).level];
+
 	};
+
 	function mouse_collems(row){
-		if(position_of_mouse.x<34&&position_of_mouse.x>0)			//0v6
+		if(mouse_x<34&&mouse_x>0)			//0v6
 			choose(0+row)
-		else if(position_of_mouse.x<65&&position_of_mouse.x>36)		//1v7
+		else if(mouse_x<65&&mouse_x>36)		//1v7
 			choose(1+row)
-		else if(position_of_mouse.x<100&&position_of_mouse.x>68)	//2v8
+		else if(mouse_x<100&&mouse_x>68)	//2v8
 			choose(2+row)
-		else if(position_of_mouse.x<129&&position_of_mouse.x>102)	//3v9
+		else if(mouse_x<129&&mouse_x>102)	//3v9
 			choose(3+row)
-		else if(position_of_mouse.x<164&&position_of_mouse.x>131)	//4v10
+		else if(mouse_x<164&&mouse_x>131)	//4v10
 			choose(4+row)
-		else if(position_of_mouse.x<206&&position_of_mouse.x>166)	//5v11
+		else if(mouse_x<206&&mouse_x>166)	//5v11
 			choose(5+row)
 	};
-
+	function choose(item_numb){
+		localStorage.getItem("inventory");
+	};
 };
-
-function choose(item_numb){
-	var inventory=JSON.parse(localStorage.getItem("inventory"));
-	var choosen_items=JSON.parse(localStorage.getItem("choosenItems"));
-	if(choosen_items)
-		if(choosen_items.length>=current_level.inputAmount)
-			choosen_items=[];
-	else
-		choosen_items=[];
-	choosen_items.push(inventory[item_numb]);
-	localStorage.setItem("choosenItems",JSON.stringify(choosen_items));
-};
-
 function shoot(){
-	var laserShot = new Audio("sound/laserfire.wav");
-	laserShot.play();
 	if(current_level)
 		for(var i=0;current_level.guns.length>i;i++){
 			current_level.guns[i].shoot();
 		};
-
 };
 
 var isActive=true;
@@ -146,19 +137,22 @@ function update(){
 		// console.log(failureStateBool);
 		ctx.clearRect(0, 0, W, H);
 
-		if (menu_instance == false&&failureStateBool == false) {
+		if (menu_instance == false&&failureStateBool == false && nxtLvlBool == false) {
 
-		 	background(ctx);
+		 	//background(ctx);
 		 	gameground(ctx);
 		 	forground(ctx);
 		}
 		else if (failureStateBool) {
 		 	forground(ctx);
 		}
+		else if (nxtLvlBool){
+			forground(ctx);
+		}
 		else{
 			menu(ctx);
 		};
-	};//
+	};
 };
 
 function step(step_in_time){

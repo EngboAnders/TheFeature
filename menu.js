@@ -1,21 +1,21 @@
 //menu
 var menu_instance = true;
-
+var position_of_mouse={'x':0,'y':0};
 
 var SplashScreen = function(ctx){
 	// console.log('dddd');
 	// var color = 'rgb(' + 1 + ',0,0)';
 	ctx.fillStyle = 'Black';
-	if(position_of_mouse.y>=255&&position_of_mouse.y<280)
+	if(position_of_mouse.y>=265&&position_of_mouse.y<290)
 		// console.log('new game')
 		ctx.fillRect(0,255,W,30);
-	else if(position_of_mouse.y>=280&&position_of_mouse.y<305)
+	if(position_of_mouse.y>=290&&position_of_mouse.y<315)
 		// console.log('save game')
 		ctx.fillRect(0,280,W,30);
-	else if(position_of_mouse.y>=305&&position_of_mouse.y<330)
+	if(position_of_mouse.y>=315&&position_of_mouse.y<340)
 		// console.log('load game')
 		ctx.fillRect(0,305,W,30);
-	else if(position_of_mouse.y>=330&&position_of_mouse.y<355)
+	if(position_of_mouse.y>=340&&position_of_mouse.y<365)
 		// console.log('load game')
 		ctx.fillRect(0,330,W,30);
 	ctx.fillStyle = 'White';
@@ -33,4 +33,8 @@ var SplashScreen = function(ctx){
 
 	
 };
-
+window.addEventListener('mousemove', function(e){
+    position_of_mouse.x = e.pageX;
+    position_of_mouse.y = e.pageY;
+    // console.log(position_of_mouse);
+}, false);
