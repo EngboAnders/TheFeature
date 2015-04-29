@@ -71,6 +71,9 @@ NewLvlRectangle.prototype.nextLevel= function(){
 		
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of faab415... show formel and choosen items working
+=======
 >>>>>>> parent of faab415... show formel and choosen items working
 =======
 >>>>>>> parent of faab415... show formel and choosen items working
