@@ -8,17 +8,18 @@ var current_level=null;
 
 var Gameground =function(ctx){
 	if(Gameground_instance){
+		//player
+		if(player!=null){
+			player.update(current_level);
+			// player.render();
+		}
 		//level
 		// console.log('sss')
 		if(current_level!=null){
 			// console.log('bbbb')
 			current_level.update(ctx);
 		}
-		//player
-		if(player!=null){
-			player.update(current_level);
-			// player.render();
-		}
+		
 	}
 	//
 	else{

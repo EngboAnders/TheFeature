@@ -11,7 +11,7 @@ var Forground =function(ctx){
 			current_level.lvl_forground();
 		//
 		
-		if (failureStateBool) {
+		if (failureStateBool ) {
 			console.log('failiure state tingy');
 			var color = 'rgb(' + 1 + ',0,0)';
 			ctx.fillStyle = 'White';
@@ -24,30 +24,12 @@ var Forground =function(ctx){
 			ctx.font = '24px Verdana, sans-serif';
 			ctx.fillText('click to begin again', 450, 280);
 			window.addEventListener('click', function(){
-				//console.log("ddd");
+				console.log("ddd");
 				failureStateBool = false;
 				collected_time = 0;
-				backgroundMusic.play();
 			}, false)
-		}else if (nxtLvlBool) {
-			console.log('nxtLvlBool tingy');
-			var color = 'rgb(' + 1 + ',0,0)';
-			ctx.fillStyle = 'White';
-			ctx.font = '30px Verdana, sans-serif';
-			ctx.textBaseline = 'top';
-			ctx.textAlign = 'center';
-			ctx.fillText('GOOD JOB!!!', 450, 250);
-
-			ctx.fillStyle = color;
-			ctx.font = '24px Verdana, sans-serif';
-			ctx.fillText('Starting in 3,2,1...', 450, 280);
-
-
-			 setTimeout(function(){ 
-			 	nxtLvlBool = false;
-			 }, 1000); 
-			
-		} else{
+		}
+		else{
 			var overlay= new Image();
 			overlay.src='imgs/overlay.png';
 			ctx.drawImage(overlay, 0,0);
@@ -83,6 +65,8 @@ var Forground =function(ctx){
 					inv_y=622;
 				}
 			}
+			ctx.fillText(current_level.getFormel(), 334, 597);
+			
 		}
 
 		//move to game background or for ground

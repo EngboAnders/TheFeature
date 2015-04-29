@@ -1,8 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 ///basic building block////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
-var nxtLvlBool = false;
-var victorySnd = new Audio("sound/victory.wav");
 var Rectangle = function(x, y,w,h,img)
 {
 	this.image 	= img;
@@ -60,14 +58,14 @@ NewLvlRectangle.prototype.contains = function(x,y){
 	var bool=this.box.contains(x,y);
 	if(bool)
 	{
-		victorySnd.play();
-		nxtLvlBool = true;
-
 		this.nextLevel();
 	}
 };
 NewLvlRectangle.prototype.nextLevel= function(){
-
+	if (true) {
+		
+	}
+	localStorage.setItem('choosenItems',JSON.stringify([]));
 	current_level=levels[this.level_going_to];
 	player.setPosition(this.player_new_position);
 };
