@@ -105,7 +105,7 @@ function update(){
 		// console.log(failureStateBool);
 		ctx.clearRect(0, 0, W, H);
 
-		if (menu_instance == false&&failureStateBool == false) {
+		if (menu_instance == false&&failureStateBool == false && nxtLvlBool == false) {
 
 		 	//background(ctx);
 		 	gameground(ctx);
@@ -113,6 +113,9 @@ function update(){
 		}
 		else if (failureStateBool) {
 		 	forground(ctx);
+		}
+		else if (nxtLvlBool){
+			forground(ctx);
 		}
 		else{
 			menu(ctx);
