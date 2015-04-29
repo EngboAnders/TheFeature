@@ -1,23 +1,47 @@
 //menu
 var menu_instance = true;
-var position_of_mouse={'x':0,'y':0};
-
+var hoverSndMenu = new Audio("sound/hovermenu.ogg");
+var playOnceMusic = 0;
+var oldPlayOnceMusic=0;
 var SplashScreen = function(ctx){
 	// console.log('dddd');
 	// var color = 'rgb(' + 1 + ',0,0)';
 	ctx.fillStyle = 'Black';
-	if(position_of_mouse.y>=265&&position_of_mouse.y<290)
+	if(position_of_mouse.y>=255&&position_of_mouse.y<280){
 		// console.log('new game')
+		playOnceMusic=1;
 		ctx.fillRect(0,255,W,30);
-	if(position_of_mouse.y>=290&&position_of_mouse.y<315)
+		if(playOnceMusic!=oldPlayOnceMusic){
+			hoverSndMenu.play()
+		}
+	}
+	else if(position_of_mouse.y>=280&&position_of_mouse.y<305){
 		// console.log('save game')
+		playOnceMusic=2;
 		ctx.fillRect(0,280,W,30);
-	if(position_of_mouse.y>=315&&position_of_mouse.y<340)
+		if(playOnceMusic!=oldPlayOnceMusic){
+			hoverSndMenu.play()
+		}
+	}
+	else if(position_of_mouse.y>=305&&position_of_mouse.y<330){
 		// console.log('load game')
+		playOnceMusic=3;
 		ctx.fillRect(0,305,W,30);
-	if(position_of_mouse.y>=340&&position_of_mouse.y<365)
+		if(playOnceMusic!=oldPlayOnceMusic){
+			hoverSndMenu.play()
+		}
+	}
+	else if(position_of_mouse.y>=330&&position_of_mouse.y<355){
 		// console.log('load game')
+		playOnceMusic=4;
 		ctx.fillRect(0,330,W,30);
+		if(playOnceMusic!=oldPlayOnceMusic){
+			hoverSndMenu.play()
+		}
+	}else{
+		playOnceMusic = 0;
+	}
+	oldPlayOnceMusic=playOnceMusic;
 	ctx.fillStyle = 'White';
 	ctx.font = '30px Verdana, sans-serif';
 	ctx.textBaseline = 'top';
@@ -33,8 +57,4 @@ var SplashScreen = function(ctx){
 
 	
 };
-window.addEventListener('mousemove', function(e){
-    position_of_mouse.x = e.pageX;
-    position_of_mouse.y = e.pageY;
-    // console.log(position_of_mouse);
-}, false);
+

@@ -4,10 +4,11 @@ progress = 0, collected_time = 0, firstrun=true;
 //height and width of the game surface
 W = 900,//*/window.innerWidth-33, 
 H = 650;//*/window.innerHeight-33;
-// player stuff goes here! Such as speed, bouncability and such
+var position_of_mouse={'x':0,'y':0};
 
 //User
-var backgroundMusic = new Audio("sound/Music.mp3");
+var backgroundMusic = new Audio("sound/Music.mp3"), clickSndMenu = new Audio("sound/clickmenu.mp3");
+
 var user;
 
 // Layers
@@ -46,87 +47,126 @@ var load = function(){
 
 		makelevels();
 		window.addEventListener('click',clicked);
+		canvas.addEventListener('mousemove', function(e){
+			var rect = canvas.getBoundingClientRect();
+		    position_of_mouse.x = e.clientX- rect.left;
+		    position_of_mouse.y = e.clientY- rect.top;
+		    // console.log(position_of_mouse);
+		}, false);
 
 	};
 	setInterval(function(){window.requestAnimationFrame(step);}, 1000/30);
 	
 };
 
-
-function clicked(event){
-	var mouse_x=event.clientX;
-	var mouse_y=event.clienty;
-	if(mouse_y<615&&mouse_y>583)
-		mouse_collems(0);
-	if(mouse_y<650&&mouse_y>620)
-		mouse_collems(5);
-
+function clicked(){
 	if(menu_instance){
-		if(position_of_mouse.y>=265&&position_of_mouse.y<290)
+		clickSndMenu.play();
+		if(position_of_mouse.y>=255&&position_of_mouse.y<280)
 			// console.log('new game')
 			menu_instance=false;
-		if(position_of_mouse.y>=290&&position_of_mouse.y<315)
+		else if(position_of_mouse.y>=280&&position_of_mouse.y<305)
 			// console.log('save game')
-			ctx.fillRect(0,280,W,30);
-		if(position_of_mouse.y>=315&&position_of_mouse.y<340)
-			// console.log('Credits')
-			ctx.fillRect(0,305,W,30);
-	};
+			save_game();
+		else if(position_of_mouse.y>=305&&position_of_mouse.y<330)
+			// console.log('load game')
+			load_game();
+		else if(position_of_mouse.y>=330&&position_of_mouse.y<355)
+			// console.log('load game')
+			credits=true;
+	}else{
+		if(position_of_mouse.y<615&&position_of_mouse.y>583)
+			mouse_collems(0);
+		else if(position_of_mouse.y<650&&position_of_mouse.y>620)
+			mouse_collems(6);
 
+	}
+	function save_game(){
+		localStorage.setItem("savefile",JSON.stringify({'level':levels.indexOf(current_level)}))
+	};
+	function load_game(){
+		if(localStorage.getItem("savefile"))
+			current_level=levels[JSON.parse(localStorage.getItem("savefile")).level];
+	};
 	function mouse_collems(row){
-		if(mouse_x<34&&mouse_x>0)			//0v6
+		if(position_of_mouse.x<34&&position_of_mouse.x>0)			//0v6
 			choose(0+row)
-		else if(mouse_x<65&&mouse_x>36)		//1v7
+		else if(position_of_mouse.x<65&&position_of_mouse.x>36)		//1v7
 			choose(1+row)
-		else if(mouse_x<100&&mouse_x>68)	//2v8
+		else if(position_of_mouse.x<100&&position_of_mouse.x>68)	//2v8
 			choose(2+row)
-		else if(mouse_x<129&&mouse_x>102)	//3v9
+		else if(position_of_mouse.x<129&&position_of_mouse.x>102)	//3v9
 			choose(3+row)
-		else if(mouse_x<164&&mouse_x>131)	//4v10
+		else if(position_of_mouse.x<164&&position_of_mouse.x>131)	//4v10
 			choose(4+row)
-		else if(mouse_x<206&&mouse_x>166)	//5v11
+		else if(position_of_mouse.x<206&&position_of_mouse.x>166)	//5v11
 			choose(5+row)
 	};
-	function choose(item_numb){
-		localStorage.getItem("inventory");
-	};
+
 };
+
+function choose(item_numb){
+	var inventory=JSON.parse(localStorage.getItem("inventory"));
+	var choosen_items=JSON.parse(localStorage.getItem("choosenItems"));
+	if(choosen_items)
+		if(choosen_items.length>=current_level.inputAmount)
+			choosen_items=[];
+	else
+		choosen_items=[];
+	choosen_items.push(inventory[item_numb]);
+	localStorage.setItem("choosenItems",JSON.stringify(choosen_items));
+};
+
 function shoot(){
+	var laserShot = new Audio("sound/laserfire.wav");
+	laserShot.play();
 	if(current_level)
 		for(var i=0;current_level.guns.length>i;i++){
 			current_level.guns[i].shoot();
 		};
+
 };
 
-
+var isActive=true;
 function update(){
+	$(window).on("blur focus", function (e) {
+		isActive=false;
+	});
+	$(window).focus(function() {
+		isActive=true;
+	});
 	if(canvas!=null){
 		// console.log(menu_instance);
 		// console.log(failureStateBool);
 		ctx.clearRect(0, 0, W, H);
 
-		if (menu_instance == false&&failureStateBool == false) {
+		if (menu_instance == false&&failureStateBool == false&&nxtLvlBool == false) {
 
-		 	//background(ctx);
+		 	background(ctx);
 		 	gameground(ctx);
 		 	forground(ctx);
 		}
 		else if (failureStateBool) {
 		 	forground(ctx);
 		}
+		else if (nxtLvlBool) {
+			forground(ctx);
+		}
 		else{
 			menu(ctx);
 		};
-	};
+	};//
 };
 
 function step(step_in_time){
-  	progress = step_in_time - start_step_in_time;
-  	if(!menu_instance)
-  		collected_time += progress;
-  	// if(progress>0)
-	  	update();
-	start_step_in_time = step_in_time;
+  	if(isActive){
+	  	progress = step_in_time - start_step_in_time;
+	  	if(!menu_instance)
+	  		collected_time += progress;
+	  	// if(progress>0)
+		  	update();
+		start_step_in_time = step_in_time;
+	}
 };
 
 window.addEventListener('load', load, false);

@@ -1,8 +1,8 @@
 //player physics
 var print=false;
-var last_time, speed=12, slowing_speed = 0.9, speed_up=5, bounceFactor = 0.01, gravity=9.3;
+var last_time, speed=12, slowing_speed = 0.9, speed_up=5, bounceFactor = 0.01, gravity=9.3, max_velocity=100;
 
-var player_w = 34, player_h = 36, srcX = 0, srcY = 0, animate_right=true;
+var player_w = 34, player_h = 36, animate_right=true;
 
 var jumpSnd = new Audio("sound/jump.wav");
 var walkSnd = new Audio("sound/walk.wav");
@@ -18,6 +18,8 @@ var Player = function(position) {
 	this.grounded = false;
 	this.oldX;
 	this.oldY;
+	this.srcX = 0;
+	this.srcY = 0;
 	this.update_move=true;
 
 };
@@ -42,9 +44,9 @@ Player.prototype.update = function(current_level){
 	}
 	
 	if(this.hitbox().Yhigh >= H - 93) {
-		onGround++;
+		this.grounded=true;
 		this.y = H - 93 - this.height;
-		this.vy *= -bounceFactor;
+		this.vy *= 0;
 	}
 	if(this.hitbox().Xhigh >= W-5) {
 		this.x = W - this.width-5;
@@ -75,18 +77,25 @@ Player.prototype.update = function(current_level){
 		this.vy+=speed_up*(progress/100);
 	if (left)//a
 	{
-		this.vx-=speed*(progress/100);
-		if(srcX == 0 || srcX == 68 || this.grounded){
+
+		this.vx=(this.vx-speed*(progress/100)<max_velocity
+			&&this.vx-speed*(progress/100)>-max_velocity)?
+			this.vx-speed*(progress/100):-max_velocity;
+		if((this.srcX == 0 || this.srcX == 68) && this.grounded){
+
 			walkSnd.play();
 		}
 	}
 	if (right)//d
 	{
-		this.vx+=speed*(progress/100);
-		if(srcX == 0 || srcX == 68 || this.grounded){
+
+		this.vx=(this.vx-speed*(progress/100)<max_velocity&&this.vx-speed*(progress/100)>-max_velocity)?this.vx+speed*(progress/100):max_velocity;
+		if((this.srcX == 0 || this.srcX == 68) && this.grounded){
+
 			walkSnd.play();
 		}
 	}
+
  
 	// stuff
 	var i = 0;
@@ -132,29 +141,29 @@ Player.prototype.render=function(){
 	// if(Math.floor(collected_time/1000)!=last_time){
 		
 		if (right) {
-		    srcX = ((animate_right)?srcX + 34:srcX - 34);
-			srcY = 36;
-			if(srcX>68-34)
+		    this.srcX = ((animate_right)?this.srcX + 34:this.srcX - 34);
+			this.srcY = 36;
+			if(this.srcX>68-34)
 				animate_right=false;
-			if(srcX<34)
+			if(this.srcX<34)
 				animate_right=true;
 		} else if (left) {
-		    srcX = ((animate_right)?srcX + 34:srcX - 34);
-			srcY = 72;
-			if(srcX>68-34)
+		    this.srcX = ((animate_right)?this.srcX + 34:this.srcX - 34);
+			this.srcY = 72;
+			if(this.srcX>68-34)
 				animate_right=false;
-			if(srcX<34)
+			if(this.srcX<34)
 				animate_right=true;
 		} else {
-		    srcX = ((animate_right)?srcX + 34:srcX - 34);
-			srcY = 0;
-			if(srcX>102-34)
+		    this.srcX = ((animate_right)?this.srcX + 34:this.srcX - 34);
+			this.srcY = 0;
+			if(this.srcX>102-34)
 				animate_right=false;
-			if(srcX<34)
+			if(this.srcX<34)
 				animate_right=true;
 		}
 	// }
-	ctx.drawImage(this.img,srcX,srcY,player_w,player_h,player.x,player.y,player_w,player_h);	
+	ctx.drawImage(this.img,this.srcX,this.srcY,player_w,player_h,player.x,player.y,player_w,player_h);	
 	
 } 
 

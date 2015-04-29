@@ -7,10 +7,22 @@ var Level = function(playerStartPosition){
 	this.items 					= [];
 	this.guns					= [];
 	this.projectiles			= [];
+	this.text_formel_array		= [];
 	this.inputAmount			= 0;
 	this.projectileFunction		= function(){};
 	this.lvl_forground			= function(){};
 	this.lvl_background			= function(){};
+}
+Level.prototype.getFormel=function(){
+	var running_text_formel='';
+	var choosen_items = JSON.parse(localStorage.getItem('choosenItems'));
+	if(choosen_items)
+		for(i=0;i<this.text_formel_array.length;i++){
+			running_text_formel+=this.text_formel_array[i];
+			if(choosen_items.length>i)
+				running_text_formel+=choosen_items[i];
+		}
+	return running_text_formel;
 }
 
 Level.prototype.update = function(ctx){
@@ -145,6 +157,11 @@ function makelevels(){}
 
 	//lvl 0
 	var lvl0=new Level({'x':10,'y':10});
+	lvl0.lvl_background=function(){
+		var layer_img=new Image();
+		layer_img.src='imgs/layer consept.png';
+		ctx.drawImage(layer_img,0,0,W,H,0,0,W,H);
+	};
 	lvl0.enemies.push(new Enemy({'x':40,'y':10},{'x':400,'y':10},8,40));
 	lvl0.blocks.push(new Rectangle(170,538,503,93,imgs[1]));
 	lvl0.blocks.push(new Rectangle(39,235,142,323,imgs[24]));
@@ -155,6 +172,7 @@ function makelevels(){}
 
 	//lvl 1
 	var lvl1= new Level();
+
 	lvl1.blocks.push(new Rectangle(400,400,150,82,imgs[10]));//Note
 	lvl1.blocks.push(new Rectangle(290,325,20,120,imgs[30]));//createsToNovel
 	lvl1.blocks.push(new Rectangle(590,355,20,120,imgs[30]));//line
@@ -166,6 +184,11 @@ function makelevels(){}
 	lvl1.blocks.push(new Rectangle(480,256,175,100,imgs[34]));//novel
 	lvl1.blocks.push(new Rectangle(530,85,102,52,imgs[35]));//creates
 	lvl1.blocks.push(new Rectangle(250,445,100,53,imgs[36]));//Buys
+
+	lvl1.blocks.push(new Rectangle(400,400,150,82,imgs[10]));
+	lvl1.text_formel_array.push('(');
+	lvl1.text_formel_array.push('/6667)*x^2-x+325');
+
 	levels.push(lvl1);
 	//lvl 2
 	var lvl2= new Level();

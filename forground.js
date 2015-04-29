@@ -28,7 +28,21 @@ var Forground =function(ctx){
 				failureStateBool = false;
 				collected_time = 0;
 			}, false)
-		}else{
+		}else if(nxtLvlBool){
+				var color = 'rgb(' + 1 + ',0,0)';
+				ctx.fillStyle = 'White';
+				ctx.font = '30px Verdana, sans-serif';
+				ctx.textBaseline = 'top';
+				ctx.textAlign = 'center';
+				ctx.fillText('Great work chap.', 450, 250);
+
+				ctx.fillStyle = color;
+				ctx.font = '24px Verdana, sans-serif';
+				ctx.fillText('Starting in 3,2,1..', 450, 280);
+				setTimeout(function() {
+					nxtLvlBool = false;
+				}, 1000)
+			}else{
 			var overlay= new Image();
 			overlay.src='imgs/overlay.png';
 			ctx.drawImage(overlay, 0,0);
@@ -64,6 +78,8 @@ var Forground =function(ctx){
 					inv_y=622;
 				}
 			}
+			ctx.fillText(current_level.getFormel(), 334, 597);
+			
 		}
 
 		//move to game background or for ground

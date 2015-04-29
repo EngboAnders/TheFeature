@@ -1,5 +1,6 @@
 //enermy
 var failureStateBool = false;
+var deathSnd = new Audio("sound/playerdeath.wav");
 
 var enemy_pics=[
 	(new Image()).src='imgs/avg.png',
@@ -35,13 +36,6 @@ Enemy.prototype.hitbox=function(){
 }
 Enemy.prototype.update = function(ctx,current_level){
 	this.render(ctx);
-
-	if(this.x<=this.position_from.x&&this.y<=this.position_from.y){
-		going_forth=true;
-	}
-	if(this.x>=this.position_to.x&&this.y>=this.position_to.y){
-		going_forth=false;
-	}
 	if(going_forth){
 		this.x+=this.speedx*(progress/1000);
 		this.y+=this.speedy*(progress/1000);
@@ -49,6 +43,16 @@ Enemy.prototype.update = function(ctx,current_level){
 	else if (!going_forth){
 		this.x-=this.speedx*(progress/1000);
 		this.y-=this.speedy*(progress/1000);
+	}
+	if(this.x<=this.position_from.x&&this.y<=this.position_from.y){
+		this.x=this.position_from.x;
+		this.y=this.position_from.y;
+		going_forth=true;
+	}
+	else if(this.x>=this.position_to.x&&this.y>=this.position_to.y){
+		this.x=this.position_to.x;
+		this.y=this.position_to.y;
+		going_forth=false;
 	}
 }
 
@@ -80,6 +84,8 @@ Enemy.prototype.contains = function(x, y)
 	if (x >= this.x && x <= this.x + this.size &&
 		y >= this.y && y <= this.y + this.size){
 		//console.log('checked')
+		deathSnd.play();
+		backgroundMusic.pause();
 		player = null;
 		player= new Player(current_level.playerStartPosition);
 		failureStateBool = true;
