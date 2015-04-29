@@ -67,10 +67,28 @@ function clicked(event){
 			menu_instance=false;
 		if(position_of_mouse.y>=290&&position_of_mouse.y<315)
 			// console.log('save game')
-			ctx.fillRect(0,280,W,30);
-		if(position_of_mouse.y>=315&&position_of_mouse.y<340)
-			// console.log('Credits')
-			ctx.fillRect(0,305,W,30);
+
+			save_game();
+		else if(position_of_mouse.y>=305&&position_of_mouse.y<330)
+			// console.log('load game')
+			load_game();
+		else if(position_of_mouse.y>=330&&position_of_mouse.y<355)
+			// console.log('load game')
+			credits=true;
+	}else{
+		if(position_of_mouse.y<615&&position_of_mouse.y>583)
+			mouse_collems(0);
+		else if(position_of_mouse.y<650&&position_of_mouse.y>620)
+			mouse_collems(5);
+
+	}
+	function save_game(){
+		localStorage.setItem("savefile",JSON.stringify({'level':levels.indexOf(current_level)}))
+	};
+	function load_game(){
+		if(localStorage.getItem("savefile"))
+			current_level=levels[JSON.parse(localStorage.getItem("savefile")).level];
+
 	};
 
 	function mouse_collems(row){
