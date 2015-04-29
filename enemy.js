@@ -1,5 +1,6 @@
 //enermy
 var failureStateBool = false;
+var deathSnd = new Audio("sound/playerdeath.wav");
 
 var enemy_pics=[
 	(new Image()).src='imgs/avg.png',
@@ -83,6 +84,8 @@ Enemy.prototype.contains = function(x, y)
 	if (x >= this.x && x <= this.x + this.size &&
 		y >= this.y && y <= this.y + this.size){
 		//console.log('checked')
+		deathSnd.play();
+		backgroundMusic.pause();
 		player = null;
 		player= new Player(current_level.playerStartPosition);
 		failureStateBool = true;

@@ -7,7 +7,8 @@ H = 650;//*/window.innerHeight-33;
 var position_of_mouse={'x':0,'y':0};
 
 //User
-var backgroundMusic = new Audio("sound/Music.mp3");
+var backgroundMusic = new Audio("sound/Music.mp3"), clickSndMenu = new Audio("sound/clickmenu.mp3");
+
 var user;
 
 // Layers
@@ -60,6 +61,7 @@ var load = function(){
 
 function clicked(){
 	if(menu_instance){
+		clickSndMenu.play();
 		if(position_of_mouse.y>=255&&position_of_mouse.y<280)
 			// console.log('new game')
 			menu_instance=false;
