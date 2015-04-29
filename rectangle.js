@@ -70,6 +70,9 @@ NewLvlRectangle.prototype.nextLevel= function(){
 	if (true) {
 		
 	}
+<<<<<<< HEAD
+>>>>>>> parent of faab415... show formel and choosen items working
+=======
 >>>>>>> parent of faab415... show formel and choosen items working
 	current_level=levels[this.level_going_to];
 	player.setPosition(this.player_new_position);

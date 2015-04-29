@@ -29,6 +29,7 @@ var Forground =function(ctx){
 				collected_time = 0;
 			}, false)
 <<<<<<< HEAD
+<<<<<<< HEAD
 		}else if (nxtLvlBool) {
 			console.log('nxtLvlBool tingy');
 			var color = 'rgb(' + 1 + ',0,0)';
@@ -48,6 +49,9 @@ var Forground =function(ctx){
 			 }, 1000); 
 			
 		} else{
+=======
+		}else{
+>>>>>>> parent of faab415... show formel and choosen items working
 =======
 		}else{
 >>>>>>> parent of faab415... show formel and choosen items working
