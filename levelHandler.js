@@ -171,7 +171,7 @@ function makelevels(){}
 	levels.push(lvl0);
 
 	//lvl 1
-	var lvl1= new Level();
+	var lvl1= new Level({'x':10,'y':10});
 
 	lvl1.blocks.push(new Rectangle(400,400,150,82,imgs[10]));//Note
 	lvl1.blocks.push(new Rectangle(290,325,20,120,imgs[30]));//createsToNovel
@@ -184,7 +184,7 @@ function makelevels(){}
 	lvl1.blocks.push(new Rectangle(480,256,175,100,imgs[34]));//novel
 	lvl1.blocks.push(new Rectangle(530,85,102,52,imgs[35]));//creates
 	lvl1.blocks.push(new Rectangle(250,445,100,53,imgs[36]));//Buys
-
+	lvl1.blocks.push(new NewLvlRectangle(360,30,150,82,imgs[10],2,{'x':10,'y':10}))
 	lvl1.blocks.push(new Rectangle(400,400,150,82,imgs[10]));
 	lvl1.text_formel_array.push('(');
 	lvl1.text_formel_array.push('/6667)*x^2-x+325');
@@ -192,7 +192,7 @@ function makelevels(){}
 	levels.push(lvl1);
 
 	//lvl 2
-	var lvl2= new Level();
+	var lvl2= new Level({'x':10,'y':10});
 	lvl2.enemies.push(new Enemy({'x':40,'y':10},{'x':400,'y':10},8,40));
 	lvl2.enemies.push(new Enemy({'x':540,'y':50},{'x':500,'y':500},5,40));
 	lvl2.enemies.push(new Enemy({'x':40,'y':500},{'x':500,'y':500},5,40));
@@ -213,7 +213,7 @@ function makelevels(){}
 
 
 //lvl 
-	var lvl3= new Level();
+	var lvl3= new Level({'x':10,'y':10});
 	lvl3.enemies.push(new Enemy({'x':40,'y':10},{'x':400,'y':10},8,40));
 	lvl3.enemies.push(new Enemy({'x':540,'y':50},{'x':500,'y':500},5,40));
 	lvl3.enemies.push(new Enemy({'x':40,'y':500},{'x':500,'y':500},5,40));
