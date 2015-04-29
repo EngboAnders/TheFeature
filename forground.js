@@ -27,6 +27,7 @@ var Forground =function(ctx){
 				//console.log("ddd");
 				failureStateBool = false;
 				collected_time = 0;
+				backgroundMusic.play();
 			}, false)
 		}else if (nxtLvlBool) {
 			console.log('nxtLvlBool tingy');
