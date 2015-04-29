@@ -190,7 +190,46 @@ function makelevels(){}
 	lvl1.text_formel_array.push('/6667)*x^2-x+325');
 
 	levels.push(lvl1);
+
 	//lvl 2
 	var lvl2= new Level();
-	lvl2.blocks.push(new Rectangle(50,50,96,95,imgs[17]));
+	lvl2.enemies.push(new Enemy({'x':40,'y':10},{'x':400,'y':10},8,40));
+	lvl2.enemies.push(new Enemy({'x':540,'y':50},{'x':500,'y':500},5,40));
+	lvl2.enemies.push(new Enemy({'x':40,'y':500},{'x':500,'y':500},5,40));
+	lvl2.items.push(new Item(315,310,4));
+	lvl2.items.push(new Item(435,180,5));
+	lvl2.blocks.push(new NewLvlRectangle(360,30,150,82,imgs[10],3,{'x':10,'y':10}))
+
+	lvl2.blocks.push(new Rectangle(350,115,430,45,imgs[43]));//Cup
+	lvl2.blocks.push(new Rectangle(480,175,50,54,imgs[42]));//cup-teacup
+	lvl2.blocks.push(new Rectangle(380,175,50,54,imgs[42]));//cup-coffeecup
+	lvl2.blocks.push(new Rectangle(250,307,50,130,imgs[41]));//coffeemcup-coffeemug
+	lvl2.blocks.push(new Rectangle(350,307,50,130,imgs[41]));//CoffeeCup-EspressoCup
+	lvl2.blocks.push(new Rectangle(480,250,148,257,imgs[40]));//Teacup
+    lvl2.blocks.push(new Rectangle(350,437,176,56,imgs[39]));//Espressocup
+	lvl2.blocks.push(new Rectangle(130,437,176,56,imgs[38]));//Coffeemug
+	lvl2.blocks.push(new Rectangle(250,248,176,56,imgs[37]));//Coffeecup
 	levels.push(lvl2);
+
+
+//lvl 
+	var lvl3= new Level();
+	lvl3.enemies.push(new Enemy({'x':40,'y':10},{'x':400,'y':10},8,40));
+	lvl3.enemies.push(new Enemy({'x':540,'y':50},{'x':500,'y':500},5,40));
+	lvl3.enemies.push(new Enemy({'x':40,'y':500},{'x':500,'y':500},5,40));
+	lvl3.items.push(new Item(315,280,4));
+	lvl3.items.push(new Item(435,150,5));
+	lvl3.blocks.push(new NewLvlRectangle(360,30,150,82,imgs[10],4,{'x':10,'y':10}))
+
+	lvl3.blocks.push(new Rectangle(200,150,193,102,imgs[44]));//Person
+	lvl3.blocks.push(new Rectangle(90,380,167,89,imgs[45]));//Student
+	lvl3.blocks.push(new Rectangle(300,325,176,56,imgs[46]));//Professor
+	lvl3.blocks.push(new Rectangle(600,170,161,128,imgs[47]));//Address
+	lvl3.blocks.push(new Rectangle(395,180,206,60,imgs[48]));//PersonToAddress
+	lvl3.blocks.push(new Rectangle(200,250,50,130,imgs[49]));//StudentToPerson
+	lvl3.blocks.push(new Rectangle(350,250,50,74,imgs[50]));//ProfessorToPerson
+	lvl3.blocks.push(new Rectangle(100,20,176,56,imgs[51]));//Human
+	lvl3.blocks.push(new Rectangle(200,78,50,74,imgs[50]));//Lillepil Human
+	lvl3.blocks.push(new Rectangle(380,385,50,74,imgs[50]));//Staff pil
+	lvl3.blocks.push(new Rectangle(330,461,176,56,imgs[52]));;//Staff
+	levels.push(lvl3);
