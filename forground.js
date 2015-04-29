@@ -11,8 +11,8 @@ var Forground =function(ctx){
 			current_level.lvl_forground();
 		//
 		
-		if (failureStateBool) {
-			//console.log('failiureState Bool');
+		if (failureStateBool ) {
+			console.log('failiure state tingy');
 			var color = 'rgb(' + 1 + ',0,0)';
 			ctx.fillStyle = 'White';
 			ctx.font = '30px Verdana, sans-serif';
@@ -24,21 +24,10 @@ var Forground =function(ctx){
 			ctx.font = '24px Verdana, sans-serif';
 			ctx.fillText('click to begin again', 450, 280);
 			window.addEventListener('click', function(){
-				//console.log("ddd");
+				console.log("ddd");
 				failureStateBool = false;
 				collected_time = 0;
 			}, false)
-		}else if (nxtLvlBool) {
-				console.log(collected_time);
-				var color = 'rgb(' + 1 + ',0,0)';
-				ctx.fillStyle = 'White';
-				ctx.font = '30px Verdana, sans-serif';
-				ctx.textBaseline = 'top';
-				ctx.textAlign = 'center';
-				ctx.fillText('Good job!', 450, 250);
-				nxtLvlBool = false;
-
-
 		}else{
 			var overlay= new Image();
 			overlay.src='imgs/overlay.png';

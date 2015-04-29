@@ -114,10 +114,6 @@ function update(){
 		else if (failureStateBool) {
 		 	forground(ctx);
 		}
-		else if (nxtLvlBool)
-		{
-			forground(ctx);
-		}
 		else{
 			menu(ctx);
 		};

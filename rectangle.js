@@ -1,7 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 ///basic building block////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
-var nxtLvlBool = false;
 var Rectangle = function(x, y,w,h,img)
 {
 	this.image 	= img;
@@ -59,16 +58,15 @@ NewLvlRectangle.prototype.contains = function(x,y){
 	var bool=this.box.contains(x,y);
 	if(bool)
 	{
-		nxtLvlBool = true;
 		this.nextLevel();
 	}
 };
 NewLvlRectangle.prototype.nextLevel= function(){
-
-	setTimeout(function(){	
-		current_level=levels[this.level_going_to];
-		player.setPosition(this.player_new_position);}
-	, 3000);
+	if (true) {
+		
+	}
+	current_level=levels[this.level_going_to];
+	player.setPosition(this.player_new_position);
 };
 
 //////////////////////////////////////////////////////////////////////////////////////
