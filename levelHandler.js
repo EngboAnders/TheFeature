@@ -155,7 +155,17 @@ function makelevels(){}
 
 	//lvl 1
 	var lvl1= new Level();
-	lvl1.blocks.push(new Rectangle(400,400,150,82,imgs[10]));
+	lvl1.blocks.push(new Rectangle(400,400,150,82,imgs[10]));//Note
+	lvl1.blocks.push(new Rectangle(290,325,20,120,imgs[30]));//createsToNovel
+	lvl1.blocks.push(new Rectangle(590,355,20,120,imgs[30]));//line
+	lvl1.blocks.push(new Rectangle(370,110,160,20,imgs[29]));//line
+    lvl1.blocks.push(new Rectangle(570,137,20,120,imgs[30]));//line
+	lvl1.blocks.push(new Rectangle(350,462,260,20,imgs[31]));//buysNovel
+	lvl1.blocks.push(new Rectangle(200,225,175,100,imgs[32]));//consumer
+	lvl1.blocks.push(new Rectangle(210,60,175,100,imgs[33]));//writer
+	lvl1.blocks.push(new Rectangle(480,256,175,100,imgs[34]));//novel
+	lvl1.blocks.push(new Rectangle(530,85,102,52,imgs[35]));//creates
+	lvl1.blocks.push(new Rectangle(250,445,100,53,imgs[36]));//Buys
 	levels.push(lvl1);
 	//lvl 2
 	var lvl2= new Level();
