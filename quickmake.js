@@ -76,7 +76,7 @@ function clicked(){
 		if(position_of_mouse.y<615&&position_of_mouse.y>583)
 			mouse_collems(0);
 		else if(position_of_mouse.y<650&&position_of_mouse.y>620)
-			mouse_collems(5);
+			mouse_collems(6);
 
 	}
 	function save_game(){
@@ -125,8 +125,14 @@ function shoot(){
 
 };
 
-
+var isActive=true;
 function update(){
+	$(window).on("blur focus", function (e) {
+		isActive=false;
+	});
+	$(window).focus(function() {
+		isActive=true;
+	});
 	if(canvas!=null){
 		// console.log(menu_instance);
 		// console.log(failureStateBool);
@@ -148,12 +154,14 @@ function update(){
 };
 
 function step(step_in_time){
-  	progress = step_in_time - start_step_in_time;
-  	if(!menu_instance)
-  		collected_time += progress;
-  	// if(progress>0)
-	  	update();
-	start_step_in_time = step_in_time;
+  	if(isActive){
+	  	progress = step_in_time - start_step_in_time;
+	  	if(!menu_instance)
+	  		collected_time += progress;
+	  	// if(progress>0)
+		  	update();
+		start_step_in_time = step_in_time;
+	}
 };
 
 window.addEventListener('load', load, false);
