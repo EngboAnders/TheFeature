@@ -17,7 +17,7 @@ Level.prototype.getFormel=function(){
 	var running_text_formel='';
 	var choosen_items = JSON.parse(localStorage.getItem('choosenItems'));
 	if(choosen_items)
-		for(i=0;i<this.text_formel_array.length;i++){
+		for(i=0;i<text_formel_array.length;i++){
 			running_text_formel+=this.text_formel_array[i];
 			if(choosen_items.length>i)
 				running_text_formel+=choosen_items[i];
@@ -172,8 +172,6 @@ function makelevels(){}
 	//lvl 1
 	var lvl1= new Level();
 	lvl1.blocks.push(new Rectangle(400,400,150,82,imgs[10]));
-	lvl1.text_formel_array.push('(');
-	lvl1.text_formel_array.push('/6667)*x^2-x+325');
 	levels.push(lvl1);
 	//lvl 2
 	var lvl2= new Level();

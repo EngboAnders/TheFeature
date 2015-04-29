@@ -28,6 +28,7 @@ var Forground =function(ctx){
 				failureStateBool = false;
 				collected_time = 0;
 			}, false)
+<<<<<<< HEAD
 		}else if (nxtLvlBool) {
 			console.log('nxtLvlBool tingy');
 			var color = 'rgb(' + 1 + ',0,0)';
@@ -47,6 +48,9 @@ var Forground =function(ctx){
 			 }, 1000); 
 			
 		} else{
+=======
+		}else{
+>>>>>>> parent of faab415... show formel and choosen items working
 			var overlay= new Image();
 			overlay.src='imgs/overlay.png';
 			ctx.drawImage(overlay, 0,0);
