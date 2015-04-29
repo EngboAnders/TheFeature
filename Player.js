@@ -1,6 +1,6 @@
 //player physics
 var print=false;
-var last_time, speed=12, slowing_speed = 0.9, speed_up=5, bounceFactor = 0.01, gravity=9.3;
+var last_time, speed=12, slowing_speed = 0.9, speed_up=5,max_velocity=100, bounceFactor = 0.01, gravity=9.3;
 
 var player_w = 34, player_h = 36, animate_right=true;
 
