@@ -80,10 +80,7 @@ Player.prototype.update = function(current_level){
 			&&this.vx-speed*(progress/100)>-max_velocity)?
 			this.vx-speed*(progress/100):-max_velocity;
 		if((srcX == 0 || srcX == 68) && this.grounded){
-<<<<<<< HEAD
 
-=======
->>>>>>> parent of 535df6c... player no blink enemy no run away
 
 			walkSnd.play();
 		}
@@ -91,17 +88,14 @@ Player.prototype.update = function(current_level){
 	if (right)//d
 	{
 
-<<<<<<< HEAD
+
 
 
 		this.vx=(this.vx-speed*(progress/100)<max_velocity
 			&&this.vx-speed*(progress/100)>-max_velocity)?
 				this.vx+speed*(progress/100):max_velocity;
 		if((this.srcX == 0 || this.srcX == 68) && this.grounded){
-=======
-		this.vx=(this.vx-speed*(progress/100)<max_velocity&&this.vx-speed*(progress/100)>-max_velocity)?this.vx+speed*(progress/100):max_velocity;
-		if((srcX == 0 || srcX == 68) && this.grounded){
->>>>>>> parent of 535df6c... player no blink enemy no run away
+
 
 
 
