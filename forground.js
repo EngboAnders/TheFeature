@@ -11,7 +11,7 @@ var Forground =function(ctx){
 			current_level.lvl_forground();
 		//
 		
-		if (failureStateBool ) {
+		if (failureStateBool) {
 			console.log('failiure state tingy');
 			var color = 'rgb(' + 1 + ',0,0)';
 			ctx.fillStyle = 'White';
@@ -24,7 +24,7 @@ var Forground =function(ctx){
 			ctx.font = '24px Verdana, sans-serif';
 			ctx.fillText('click to begin again', 450, 280);
 			window.addEventListener('click', function(){
-				console.log("ddd");
+				//console.log("ddd");
 				failureStateBool = false;
 				collected_time = 0;
 				backgroundMusic.play();
