@@ -7,7 +7,7 @@ H = 650;//*/window.innerHeight-33;
 var position_of_mouse={'x':0,'y':0};
 
 //User
-var backgroundMusic = new Audio("sound/Music.mp3"), clickSndMenu = new Audio("sound/clickmenu.mp3");
+var backgroundMusic = new Audio("sound/PlatformsAndPitfalls.mp3"), clickSndMenu = new Audio("sound/clickmenu.mp3");
 
 var user;
 
