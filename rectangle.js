@@ -57,7 +57,7 @@ NewLvlRectangle.prototype.draw = function(ctx){
 };
 NewLvlRectangle.prototype.contains = function(x,y){
 	var bool=this.box.contains(x,y);
-	backgroundMusic.play();
+	//backgroundMusic.play();
 	if(bool)
 	{
 
