@@ -8,7 +8,7 @@ var enemy_pics=[
 	(new Image()).src='imgs/norman.jpg',
 	(new Image()).src='imgs/windowsDefender.png',
 	(new Image()).src='imgs/windowsdefender2.png',
-	(new Image()).src='imgs/eset.png',
+	(new Image()).src='imgs/eset.png'
 ];
 
 var Enemy = function(position_from, position_to, speed,size) {

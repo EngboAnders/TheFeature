@@ -4,6 +4,7 @@ var Level = function(playerStartPosition){
 	this.playerStartPosition 	= playerStartPosition;
 	this.blocks  				= [];
 	this.enemies 				= [];
+	this.bosses					= [];
 	this.items 					= [];
 	this.guns					= [];
 	this.projectiles			= [];
@@ -46,6 +47,17 @@ Level.prototype.update = function(ctx){
 	}
 	catch(e){
 		console.log('making enemies failed');
+	}
+	try{
+		var i =0;
+		while( i<this.bosses.length){
+			this.bosses[i].update(ctx,this);
+			i++
+		}
+	}
+	catch(e){
+		console.log('making bosses failed');
+		console.log(e);
 	}
 	try{
 		var i =0;
@@ -148,7 +160,7 @@ function makelevels(){}
 	levels.push(lvl2);
 
 
-//lvl 
+//lvl 2
 	var lvl3= new Level({'x':10,'y':10});
 	lvl3.enemies.push(new Enemy({'x':536,'y':18},{'x':806,'y':113},8,40));
 	lvl3.enemies.push(new Enemy({'x':498,'y':311},{'x':829,'y':485},5,40));
@@ -214,10 +226,10 @@ function makelevels(){}
 	// 		console.log(projectile.x+":"+projectile.y);
 	// }
 
-	// 
+ 	//LVL 4
 	// a = 4
 	// low gun
-	//
+
 	lvlTest.inputAmount=1;
 	lvlTest.projectileFunction=function(projectile){
 		projectile.a=JSON.parse(localStorage.getItem('choosenItems'))[0];
@@ -231,10 +243,11 @@ function makelevels(){}
 	}
 	lvlTest.text_formel_array.push('(');
 	lvlTest.text_formel_array.push('/33)*x-x+450');
-
+	lvlTest.bosses.push(new Boss({'x':670,'y':225},200));
 	lvlTest.guns.push(new Canon(25,125)); //topgun :D
 	lvlTest.guns.push(new Canon(25,275)); //midgun
 	lvlTest.guns.push(new Canon(25,425)); //lowgun
+
 	levels.push(lvlTest);
 
 	var lvlTest=new Level({'x':10,'y':30});
