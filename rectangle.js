@@ -167,12 +167,33 @@ var Projectile = function(x,y,movefunction){
 	this.img.src='imgs/shotNew.png';
 	this.movement=movefunction;
 	this.box=new Rectangle(x,y,45,38,this.img);//y+19     x+15
+	//this.hitbox=new Rectangle(x,y+80,105,25,this.img);
 };
 Projectile.prototype.update=function(ctx){
 	this.box.draw(ctx,this.x,this.y);
 	this.movement(this);
-	
+	// if(this.x>900)
+	// 	this.
 }
+
+Projectile.prototype.hitbox=function(){
+	return {
+		'Xlow':this.x, 
+		'Ylow':this.y, 
+		'Xhigh':this.x+45, 
+		'Yhigh':this.y+38
+	};
+}
+
+Projectile.prototype.contains = function(x,y){
+	if (x >= this.x && x <= this.x + this.width &&
+		y >= this.y && y <= this.y + this.height)
+		return true;
+	else 
+		return false;
+	
+};
+
 //////////////////////////////////////////////////////////////////////////////////////
 ///canon//////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////
