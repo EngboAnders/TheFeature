@@ -187,14 +187,14 @@ Player.prototype.inside=function(shape){
 	if(shape.contains(hit_box.Xhigh , hit_box.Yhigh ))
 		bottomRight=true;
 
-	if(topLeft&&print)
-		console.log('topLeft')
-	if(topRight&&print)
-		console.log('topRight')
-	if(bottomLeft&&print)
-		console.log('bottomLeft')
-	if(bottomRight&&print)
-		console.log('bottomRight')
+	// if(topLeft&&print)
+	// 	console.log('topLeft')
+	// if(topRight&&print)
+	// 	console.log('topRight')
+	// if(bottomLeft&&print)
+	// 	console.log('bottomLeft')
+	// if(bottomRight&&print)
+	// 	console.log('bottomRight')
 
 	//sides touches
 	if(topRight&&topLeft&&bottomRight&&bottomLeft){

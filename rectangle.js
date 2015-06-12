@@ -172,6 +172,13 @@ var Projectile = function(x,y,movefunction){
 Projectile.prototype.update=function(ctx){
 	this.box.draw(ctx,this.x,this.y);
 	this.movement(this);
+	if(this.inside(current_level.bosses[0])){
+		// console.log(true)
+		gabenDeathSound.play();
+		if(current_level.projectiles.indexOf(this)!=-1)
+			current_level.projectiles.splice(current_level.projectiles.indexOf(this),1);
+	}
+		
 	// if(this.x>900)
 	// 	this.
 }
@@ -185,13 +192,61 @@ Projectile.prototype.hitbox=function(){
 	};
 }
 
-Projectile.prototype.contains = function(x,y){
-	if (x >= this.x && x <= this.x + this.width &&
-		y >= this.y && y <= this.y + this.height)
-		return true;
-	else 
-		return false;
+// Projectile.prototype.contains = function(x,y){
+// 	console.log('x out: '+x+'\ny out: '+y+'\n x: '+this.x+'-'+(this.x+45)+'\ny: '+(this.y+38));
+// 	if (x >= this.x && x <= this.x + 45 &&
+// 		y >= this.y && y <= this.y + 38)
+// 		return true;
+// 	else 
+// 		return false;
 	
+// };
+Projectile.prototype.inside=function(shape){
+	// console.log(shape.hitbox());
+	// console.log(this.hitbox())
+	// this.Intersects = function(shape)
+	// console.log('f')
+	var hit_box=this.hitbox();
+	var shape_box = shape.hitbox();
+	// if(shape.bjarnebool)
+	// {
+	// 	console.log(this.hitbox());
+	// 	console.log(shape_box);
+	// 	shape.bjarnebool = false;
+	// }
+	var topLeft=false;
+	var topRight=false;
+	var bottomLeft=false;
+	var bottomRight=false;
+	// console.log(shape);
+	//checks for corners
+	// console.log('_________________')
+	if (shape.contains(hit_box.Xlow , hit_box.Ylow ))
+		topLeft=true; 
+	if(shape.contains(hit_box.Xhigh , hit_box.Ylow ))
+		topRight=true;
+	if(shape.contains(hit_box.Xlow , hit_box.Yhigh ))
+		bottomLeft=true;
+	if(shape.contains(hit_box.Xhigh , hit_box.Yhigh ))
+		bottomRight=true;
+	// console.log('_________________')
+	
+	// if(topLeft)
+	// 	console.log('topLeft')
+	// if(topRight)
+	// 	console.log('topRight')
+	// if(bottomLeft)
+	// 	console.log('bottomLeft')
+	// if(bottomRight)
+	// 	console.log('bottomRight')
+
+	//sides touches
+	if(topLeft||topRight||bottomLeft||bottomRight){
+		// console.log('tl: '+topLeft+' \ntr: '+topRight+' \nbl: '+bottomLeft+'\nbr: '+bottomRight)
+		return true;
+	}
+	
+	return false;
 };
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -210,9 +265,9 @@ Canon.prototype.hitbox=function(){
 	return this.hitablebox.hitbox();
 };
 Canon.prototype.shoot=function(ctx){
-	console.log('shoot called');
+	// console.log('shoot called');
 	if(localStorage.getItem('choosenItems')){
-		console.log('choosenItems exist');
+		// console.log('choosenItems exist');
 		if(JSON.parse(localStorage.getItem('choosenItems')).length==current_level.inputAmount&&this.active){
 			console.log('creating a new projectile');
 			current_level.projectiles.push(new Projectile(this.x+22,this.y,current_level.projectileFunction));

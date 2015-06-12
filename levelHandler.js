@@ -238,8 +238,8 @@ function makelevels(){}
 		// x=Math.floor((projectile.x-projectile.startX)/10)<=0?1:x;
 		projectile.y=(-projectile.a/33)*projectile.x+450;
 		// projectile.y=projectile.startY+function_move;
-		if(print)
-			console.log(projectile.x+":"+projectile.y);
+		// if(print)
+			// console.log(projectile.x+":"+projectile.y);
 	}
 	lvlTest.text_formel_array.push('(');
 	lvlTest.text_formel_array.push('/33)*x-x+450');
