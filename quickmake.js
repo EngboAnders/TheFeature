@@ -21,8 +21,8 @@ var load = function(){
 	canvas = document.getElementById('gameCanvas'); //get Canvas
 	canvas.height = H; canvas.width = W;  			//set dimentions
 	ctx = canvas.getContext('2d');					//get Context
-	backgroundMusic.loop = true;
-	backgroundMusic.play();
+	//backgroundMusic.loop = true;
+	//backgroundMusic.play();
 	
 	background =  function(ctx){
 		Background(ctx);

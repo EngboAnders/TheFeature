@@ -57,8 +57,12 @@ NewLvlRectangle.prototype.draw = function(ctx){
 };
 NewLvlRectangle.prototype.contains = function(x,y){
 	var bool=this.box.contains(x,y);
-	backgroundMusic.play();
+
+	// backgroundMusic.play();
 	if(bool&&current_level.items.length==0)
+
+	//backgroundMusic.play();
+
 	{
 
 		nxtLvlBool = true;
