@@ -50,17 +50,6 @@ Level.prototype.update = function(ctx){
 	}
 	try{
 		var i =0;
-		while( i<this.bosses.length){
-			this.bosses[i].update(ctx,this);
-			i++
-		}
-	}
-	catch(e){
-		console.log('making bosses failed');
-		console.log(e);
-	}
-	try{
-		var i =0;
 		while( i<this.items.length){
 			this.items[i].draw(ctx);
 			i++
@@ -111,7 +100,7 @@ function makelevels(){}
 		layer_img.src='imgs/layer consept.png';
 		ctx.drawImage(layer_img,0,0,W,H,0,0,W,H);
 	};
-	lvl0.enemies.push(new Enemy({'x':40,'y':10},{'x':400,'y':10},8,40));
+	lvl0.enemies.push(new Enemy({'x':220,'y':200},{'x':600,'y':200},2,40));
 	lvl0.blocks.push(new Rectangle(170,538,503,93,imgs[1]));
 	lvl0.blocks.push(new Rectangle(39,235,142,323,imgs[24]));
 	lvl0.blocks.push(new Rectangle(654,235,142,323,imgs[25]));
@@ -121,8 +110,8 @@ function makelevels(){}
 
 	//lvl 1
 	var lvl1= new Level({'x':10,'y':10});
-
-	lvl1.blocks.push(new Rectangle(400,400,150,82,imgs[10]));//Note
+	lvl1.enemies.push(new Enemy({'x':200,'y':170},{'x':500,'y':170},2,40));
+	lvl1.enemies.push(new Enemy({'x':350,'y':400},{'x':500,'y':400},2,40));
 	lvl1.blocks.push(new Rectangle(290,325,20,120,imgs[30]));//createsToNovel
 	lvl1.blocks.push(new Rectangle(590,355,20,120,imgs[30]));//line
 	lvl1.blocks.push(new Rectangle(370,110,160,20,imgs[29]));//line
@@ -133,20 +122,19 @@ function makelevels(){}
 	lvl1.blocks.push(new Rectangle(480,256,175,100,imgs[34]));//novel
 	lvl1.blocks.push(new Rectangle(530,85,102,52,imgs[35]));//creates
 	lvl1.blocks.push(new Rectangle(250,445,100,53,imgs[36]));//Buys
-	lvl1.blocks.push(new NewLvlRectangle(360,30,150,82,imgs[10],2,{'x':10,'y':10}))
-	lvl1.blocks.push(new Rectangle(400,400,150,82,imgs[10]));
-	
-
+	lvl1.blocks.push(new NewLvlRectangle(750,490,150,82,imgs[10],2,{'x':10,'y':10}))
 	levels.push(lvl1);
 
 	//lvl 2
 	var lvl2= new Level({'x':10,'y':10});
 	lvl2.enemies.push(new Enemy({'x':40,'y':10},{'x':400,'y':10},8,40));
-	lvl2.enemies.push(new Enemy({'x':540,'y':50},{'x':500,'y':500},5,40));
+	
 	lvl2.enemies.push(new Enemy({'x':40,'y':500},{'x':500,'y':500},5,40));
+
+
 	lvl2.items.push(new Item(315,310,4));
 	lvl2.items.push(new Item(435,180,5));
-	lvl2.blocks.push(new NewLvlRectangle(360,30,150,82,imgs[10],3,{'x':10,'y':10}))
+	lvl2.blocks.push(new NewLvlRectangle(750,490,150,82,imgs[10],3,{'x':10,'y':10}))
 
 	lvl2.blocks.push(new Rectangle(350,115,176,56,imgs[43]));//Cup
 	lvl2.blocks.push(new Rectangle(480,175,50,74,imgs[42]));//cup-teacup
@@ -160,15 +148,13 @@ function makelevels(){}
 	levels.push(lvl2);
 
 
-//lvl 2
+//lvl 
 	var lvl3= new Level({'x':10,'y':10});
-	lvl3.enemies.push(new Enemy({'x':536,'y':18},{'x':806,'y':113},8,40));
-	lvl3.enemies.push(new Enemy({'x':498,'y':311},{'x':829,'y':485},5,40));
-	// lvl3.enemies.push(new Enemy({'x':40,'y':500},{'x':500,'y':500},5,40));
-	// lvl3.items.push(new Item(315,280,4));
-	lvl3.items.push(new Item(40,40,5));
-	lvl3.blocks.push(new NewLvlRectangle(360,30,150,82,imgs[10],4,{'x':10,'y':10}))
+	lvl3.enemies.push(new Enemy({'x':300,'y':80},{'x':700,'y':80},2,40));
+    lvl3.enemies.push(new Enemy({'x':600,'y':310},{'x':850,'y':310},2,40));
+    lvl3.enemies.push(new Enemy({'x':260,'y':400},{'x':335,'y':400},2,40));
 
+    lvl3.blocks.push(new NewLvlRectangle(750,490,150,82,imgs[10],4,{'x':10,'y':10}))
 	lvl3.blocks.push(new Rectangle(200,150,193,102,imgs[44]));//Person2
 	lvl3.blocks.push(new Rectangle(90,380,167,89,imgs[45]));//Student
 	lvl3.blocks.push(new Rectangle(300,325,176,56,imgs[46]));//Staff
@@ -226,10 +212,10 @@ function makelevels(){}
 	// 		console.log(projectile.x+":"+projectile.y);
 	// }
 
- 	//LVL 4
+	// 
 	// a = 4
 	// low gun
-
+	//
 	lvlTest.inputAmount=1;
 	lvlTest.projectileFunction=function(projectile){
 		projectile.a=JSON.parse(localStorage.getItem('choosenItems'))[0];
@@ -244,10 +230,11 @@ function makelevels(){}
 	lvlTest.text_formel_array.push('(');
 	lvlTest.text_formel_array.push('/33)*x-x+450');
 	lvlTest.bosses.push(new Boss({'x':670,'y':225},200));
+
+
 	lvlTest.guns.push(new Canon(25,125)); //topgun :D
 	lvlTest.guns.push(new Canon(25,275)); //midgun
 	lvlTest.guns.push(new Canon(25,425)); //lowgun
-
 	levels.push(lvlTest);
 
 	var lvlTest=new Level({'x':10,'y':30});
@@ -356,9 +343,21 @@ function makelevels(){}
 
 //lvl 2
 	var lvl2= new Level({'x':10,'y':10});
-	lvl2.enemies.push(new Enemy({'x':200,'y':50},{'x':700,'y':50},2,40));
-	lvl2.enemies.push(new Enemy({'x':580,'y':327},{'x':500,'y':500},2,40));
-	lvl2.enemies.push(new Enemy({'x':200,'y':500},{'x':400,'y':500},2,40));
+	// lvl2.enemies.push(new Enemy({'x':200,'y':50},{'x':700,'y':50},2,40));
+	// lvl2.enemies.push(new Enemy({'x':580,'y':327},{'x':500,'y':500},2,40));
+	// lvl2.enemies.push(new Enemy({'x':200,'y':500},{'x':400,'y':500},2,40));
+
+//     lvl2.enemies.push(new Enemy({'x':200,'y':50},{'x':700,'y':50},2,40));
+// lvl2.enemies.push(new Enemy({'x':400,'y':400},{'x':700,'y':400},2,40));
+// 	lvl2.enemies.push(new Enemy({'x':200,'y':500},{'x':400,'y':500},2,40));
+
+
+
+// lvl2.enemies.push(new Enemy({'x':300,'y':80},{'x':700,'y':80},2,40));
+//     lvl2.enemies.push(new Enemy({'x':600,'y':310},{'x':850,'y':310},2,40));
+//     lvl2.enemies.push(new Enemy({'x':260,'y':400},{'x':335,'y':400},2,40));
+
+
 	lvl2.items.push(new Item(315,310,4));
 	lvl2.items.push(new Item(435,180,5));
 	lvl2.blocks.push(new NewLvlRectangle(750,480,150,82,imgs[10],3,{'x':10,'y':10}))
@@ -410,6 +409,7 @@ function makelevels(){}
 	lvl3.enemies.push(new Enemy({'x':300,'y':80},{'x':700,'y':80},2,40));
     lvl3.enemies.push(new Enemy({'x':600,'y':310},{'x':850,'y':310},2,40));
     lvl3.enemies.push(new Enemy({'x':260,'y':400},{'x':335,'y':400},2,40));
+
 	lvl3.items.push(new Item(315,280,4));
 	lvl3.items.push(new Item(435,150,5));
 	lvl3.blocks.push(new NewLvlRectangle(750,500,150,82,imgs[10],4,{'x':10,'y':10}))
