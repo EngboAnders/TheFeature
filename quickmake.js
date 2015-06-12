@@ -60,6 +60,7 @@ var load = function(){
 };
 
 function clicked(){
+	console.log(position_of_mouse.x+':'+position_of_mouse.y);
 	if(menu_instance){
 		clickSndMenu.play();
 		if(position_of_mouse.y>=255&&position_of_mouse.y<280)
