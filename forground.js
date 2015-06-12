@@ -26,7 +26,6 @@ var Forground =function(ctx){
 			window.addEventListener('click', function(){
 				console.log("ddd");
 				failureStateBool = false;
-				collected_time = 0;
 			}, false)
 		}else if(nxtLvlBool){
 				var color = 'rgb(' + 1 + ',0,0)';

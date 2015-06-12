@@ -28,8 +28,11 @@ var Gameground =function(ctx){
 		window.addEventListener('keydown', doKey);
 		window.addEventListener('keyup', doKey);
 
-		if(current_level==null)
+		if(current_level==null){
+			// localStorage.setItem('inventory',Json.)
+			localStorage.setItem('inventory',JSON.stringify([]))
 			current_level = levels[0];
+		}
 		player=new Player(current_level.playerStartPosition)
 
 		Gameground_instance=true;
