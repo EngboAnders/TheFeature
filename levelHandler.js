@@ -50,11 +50,23 @@ Level.prototype.update = function(ctx){
 	}
 	try{
 		var i =0;
+		while( i<this.bosses.length){
+			this.bosses[i].update(ctx,this);
+			i++
+		}
+	}
+	catch(e){
+		console.log('making bosses failed');
+		console.log(e);
+	}
+	try{
+		var i =0;
 		while( i<this.items.length){
 			this.items[i].draw(ctx);
 			i++
 		}
 	}
+
 	catch(e){
 		console.log('making items failed');
 	}
