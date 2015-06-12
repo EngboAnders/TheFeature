@@ -58,7 +58,7 @@ NewLvlRectangle.prototype.draw = function(ctx){
 NewLvlRectangle.prototype.contains = function(x,y){
 	var bool=this.box.contains(x,y);
 	backgroundMusic.play();
-	if(bool)
+	if(bool&&current_level.items.length==0)
 	{
 
 		nxtLvlBool = true;
@@ -118,14 +118,21 @@ Item.prototype.hitbox=function(){
 	return this.box.hitbox();
 };
 Item.prototype.draw = function(ctx){
-	this.box.draw(ctx);
-	ctx.drawImage(
-		this.img, 
-		30*this.id,
-		0/*y cordinate in the sprite is always 0*/,
-		30,30/*the seperate sprites in the sheet is 64x64*/,
-		this.x, this.y,
-		30,30/*<-- check last comment*/);
+	var inventory=JSON.parse(localStorage.getItem('inventory'));
+	if(inventory==null||inventory.indexOf(this.id)<0){
+		
+			this.box.draw(ctx);
+			ctx.drawImage(
+				this.img, 
+				30*this.id,
+				0/*y cordinate in the sprite is always 0*/,
+				30,30/*the seperate sprites in the sheet is 64x64*/,
+				this.x, this.y,
+				30,30/*<-- check last comment*/);
+	}
+		
+
+	
 	//ctx.drawImage(this.img,srcX,srcY,player_w,player_h,player.x,player.y,player_w,player_h);
 };
 Item.prototype.contains = function(x,y){
@@ -141,7 +148,8 @@ Item.prototype.pick_up_item=function(){
 	if(inventory.indexOf(this.id)<0)
 		inventory.push(this.id);
 	localStorage.setItem('inventory',JSON.stringify(inventory));
-	current_level.items.splice(current_level.items.indexOf(this),1);
+	if(current_level.items.indexOf(this)!=-1)
+		current_level.items.splice(current_level.items.indexOf(this),1);
 };
 ///////////////////////////////////////////////////////////////////////////////////////
 ///projectile//////////////////////////////////////////////////////////////////////////
@@ -152,7 +160,7 @@ var Projectile = function(x,y,movefunction){
 	this.x=x;
 	this.y=y;
 	this.img=new Image();
-	this.img.src='imgs/shot.png';
+	this.img.src='imgs/shotNew.png';
 	this.movement=movefunction;
 	this.box=new Rectangle(x,y,45,38,this.img);//y+19     x+15
 };
@@ -168,7 +176,7 @@ var Canon = function(x,y){
 	this.x=x;
 	this.y=y;
 	this.img=new Image();
-	this.img.src='imgs/canon.png';
+	this.img.src='imgs/canonNew.png';
 	this.box=new Rectangle(x,y,105,105,this.img);
 	this.hitablebox=new Rectangle(x,y+80,105,25,this.img);
 	this.active=false;
